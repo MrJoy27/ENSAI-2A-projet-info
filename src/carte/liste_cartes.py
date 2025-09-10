@@ -1,6 +1,6 @@
 """Implémentation de la classe _ListeCartes."""
 
-import carte
+import src.carte.carte
 import copy
 import random
 
