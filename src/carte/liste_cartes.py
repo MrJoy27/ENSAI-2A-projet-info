@@ -11,24 +11,16 @@ class _ListeCartes:
      une liste de cartes
     """
 
-    def __init__(self, cartes: list[carte.Carte]):
-        if cartes is None:
-            self.__cartes = ([
-                carte.Carte(valeur, couleur)
-                for valeur in carte.Carte.VALEURS()
-                for couleur in carte.Carte.COULEURS()
-            ]
-             * 2)
+    def __init__(self, cartes: list[src.carte.carte.Carte]):
+        if not isinstance(cartes, list):
+            raise ValueError("L'argument 'cartes' doit être "
+                             "None ou une liste de cartes.")
         else:
-            if not isinstance(cartes, list):
-                raise ValueError("L'argument 'cartes' doit être "
-                                 "None ou une liste de cartes.")
-            else:
-                for card in cartes:
-                    if not isinstance(card, carte.Carte):
-                        raise ValueError("L'argument 'cartes' doit être "
-                                         "None ou une liste de cartes.")
-            self.__cartes = cartes
+            for card in cartes:
+                if not isinstance(card, src.carte.carte.Carte):
+                    raise ValueError("L'argument 'cartes' doit être "
+                                     "None ou une liste de cartes.")
+        self.__cartes = cartes
 
     @property
     def cartes(self):
@@ -76,7 +68,7 @@ class _ListeCartes:
         TypeError
             si l'argument card n'est pas une carte
         """
-        if not isinstance(card, carte.Carte):
+        if not isinstance(card, src.carte.carte.Carte):
             raise TypeError("L'argument 'carte' doit être une instance de Carte.")
         self.__cartes.append(card)
 

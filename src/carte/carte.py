@@ -32,20 +32,12 @@ class Carte:
     """
 
     def __init__(self, valeur: Valeur, couleur: Couleur):
-        if valeur isinstance(valeur, Valeur):
+        if isinstance(valeur, Valeur):
             raise ValueError("valeur non valide")
-        if couleur isinstance(couleur, Couleur):
+        if isinstance(couleur, Couleur):
             raise ValueError("couleur non valide")
         self.__valeur = valeur
         self.__couleur = couleur
-
-    @classmethod
-    def VALEURS(classe):
-        return classe.__VALEURS
-
-    @classmethod
-    def COULEURS(classe):
-        return classe.__COULEURS
 
     @property
     def valeur(self):
