@@ -1,6 +1,6 @@
 """Implémentation de la classe _ListeCartes."""
 
-import src.carte.carte
+from src.business_object.carte.carte import Carte
 import copy
 import random
 
@@ -11,13 +11,13 @@ class _ListeCartes:
      une liste de cartes
     """
 
-    def __init__(self, cartes: list[src.carte.carte.Carte]):
+    def __init__(self, cartes: list[Carte]):
         if not isinstance(cartes, list):
             raise ValueError("L'argument 'cartes' doit être "
                              "None ou une liste de cartes.")
         else:
             for card in cartes:
-                if not isinstance(card, src.carte.carte.Carte):
+                if not isinstance(card, Carte):
                     raise ValueError("L'argument 'cartes' doit être "
                                      "None ou une liste de cartes.")
         self.__cartes = cartes
@@ -68,7 +68,7 @@ class _ListeCartes:
         TypeError
             si l'argument card n'est pas une carte
         """
-        if not isinstance(card, src.carte.carte.Carte):
+        if not isinstance(card, Carte):
             raise TypeError("L'argument 'carte' doit être une instance de Carte.")
         self.__cartes.append(card)
 

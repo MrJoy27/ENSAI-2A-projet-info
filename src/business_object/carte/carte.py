@@ -32,12 +32,12 @@ class Carte:
     """
 
     def __init__(self, valeur: Valeur, couleur: Couleur):
-        if isinstance(valeur, Valeur):
+        if not isinstance(valeur, Valeur):
             raise ValueError("valeur non valide")
-        if isinstance(couleur, Couleur):
+        if not isinstance(couleur, Couleur):
             raise ValueError("couleur non valide")
-        self.__valeur = valeur
-        self.__couleur = couleur
+        self.__valeur = valeur.name
+        self.__couleur = couleur.name
 
     @property
     def valeur(self):
@@ -48,10 +48,10 @@ class Carte:
         return self.__couleur
 
     def __str__(self):
-        return f"{self.__valeur} de {self.__couleur.lower()}"
+        return f"{self.__valeur} de {self.__couleur}"
 
     def __repr__(self):
-        return f"Carte('{self.__valeur}','{self.__couleur}')"
+        return f"Carte(Valeur.{self.__valeur}, Couleur.{self.__couleur})"
 
     def __eq__(self, card):
         if not isinstance(card, Carte):
