@@ -1,5 +1,28 @@
 """Implémentation de la classe Carte."""
 
+from enum import Enum
+
+class Couleur(Enum):
+    Coeur = "Coeur"
+    Pique = "Pique"
+    Carreau = "Carreau"
+    Trefle = "Trefle"
+
+class Valeur(Enum):
+    As = "As"
+    Deux = "2"
+    Trois = "3"
+    Quatre = "4"
+    Cinq = "5"
+    Six = "6"
+    Sept = "7"
+    Huit = "8"
+    Neuf = "9"
+    Dix = "10"
+    Valet = "Valet"
+    Dame = "Dame"
+    Roi = "Roi"
+
 
 class Carte:
 
@@ -8,14 +31,10 @@ class Carte:
 
     """
 
-    __VALEURS = ('As', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                 'Valet', 'Dame', 'Roi')
-    __COULEURS = ('Pique', 'Carreau', 'Coeur', 'Trêfle')
-
-    def __init__(self, valeur: str, couleur: str):
-        if valeur not in Carte.__VALEURS:
+    def __init__(self, valeur: Valeur, couleur: Couleur):
+        if valeur isinstance(valeur, Valeur):
             raise ValueError("valeur non valide")
-        if couleur not in Carte.__COULEURS:
+        if couleur isinstance(couleur, Couleur):
             raise ValueError("couleur non valide")
         self.__valeur = valeur
         self.__couleur = couleur
