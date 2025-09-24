@@ -12,56 +12,72 @@ Pour afficher ce diagramme dans VScode :
 * rechercher `mermaid`
   * installer l'extension **Markdown Preview Mermaid Support**
 * revenir sur ce fichier
-  * faire **CTRL + K**, puis **V**
+  * faire **CTRL + K**, puis **V**v
 
 ```mermaid
 classDiagram
     class Joueur {
-        +id_joueur: int
-        +pseudo: string
-        +mdp: string
-        +age: int
-        +mail: string
-        +fan_pokemon: bool
+      +nom: str
+      +main: list(Carte)
+      +jetons_restants: int
+      +id_compte: int //
+      +relancer()
+      +suivre()
+      +se_coucher()
+      +jetons_restants()
     }
     
-    class JoueurDao {
-        +creer(Joueur): bool
-        +trouver_par_id(int): Joueur
-        +lister_tous(): list[Joueur]
-        +supprimer(Joueur): bool
-        +se_connecter(str,str): Joueur
+    class Carte {
+      +Valeur: Valeur(enum)
+      +Couleur: Couleur(enum)
     }
     
-    class JoueurService {
-        +creer(str...): Joueur
-        +trouver_par_id(int): Joueur
-        +lister_tous(): list[Joueur]
-        +afficher_tous(): str
-        +supprimer(Joueur): bool
-        +se_connecter(str,str): Joueur
+    class Manche {
+      +liste_joueurs:list(Joueur)
+      +pot:int
+      +riviere:list(Carte)
+      +revele:list(Bool)
+      +couche:list(Bool)//
+      +finir_manche()
     }
 
-    class AccueilVue {
+    class Table {
+      +liste_compte: list(Compte)
+      +deck: deck //
+      +commencer_manche()
     }
     
-    class ConnexionVue {
+    class Compte {
+      +id: int
+      +nom: str
+      +mdp: str
+      +nb_jetons: int
+      +nb_parties_gagnées: int //
+      +rejoindre_table(table)
+      +quitter_table(table)
+      +se_connecter()
+      +se_deconnecter()
+      +voir_profil()
     }
 
-    class MenuJoueurVue {
+    class Admin {
+      +mdp:int//
+      +accrediter_jetons(Joueur)
     }
 
-    class VueAbstraite{
-      +afficher()
-      +choisir_menu()
+    class Deck {
+      +liste_carte: list(Carte)//
+      +melanger()
+      +piocher(): Carte
     }
 
-    VueAbstraite <|-- AccueilVue
-    VueAbstraite <|-- ConnexionVue
-    VueAbstraite <|-- MenuJoueurVue
-    MenuJoueurVue ..> JoueurService : appelle
-    ConnexionVue ..> JoueurService : appelle
-    JoueurService ..> JoueurDao : appelle
-    Joueur <.. JoueurService: utilise
-    Joueur <.. JoueurDao: utilise
+    Carte -- Joueur
+    Carte -- Manche
+    Carte -- Deck
+    Deck -- Table
+    Joueur -- Compte
+    Joueur -- Manche
+    Manche -- Table
+    Table -- Compte
+    Compte -- Admin
 ```
