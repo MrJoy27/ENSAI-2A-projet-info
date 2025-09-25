@@ -20,7 +20,7 @@ classDiagram
       +nom: str
       +main: list(Carte)
       +jetons_restants: int
-      +id_compte: int //
+      +id_compte: int 
       +relancer()
       +suivre()
       +se_coucher()
@@ -37,13 +37,13 @@ classDiagram
       +pot:int
       +riviere:list(Carte)
       +revele:list(Bool)
-      +couche:list(Bool)//
+      +couche:list(Bool)
       +finir_manche()
     }
 
     class Table {
       +liste_compte: list(Compte)
-      +deck: deck //
+      +deck: deck 
       +commencer_manche()
     }
     
@@ -52,7 +52,7 @@ classDiagram
       +nom: str
       +mdp: str
       +nb_jetons: int
-      +nb_parties_gagnées: int //
+      +nb_parties_gagnées: int 
       +rejoindre_table(table)
       +quitter_table(table)
       +se_connecter()
@@ -61,12 +61,12 @@ classDiagram
     }
 
     class Admin {
-      +mdp:int//
+      +mdp:int
       +accrediter_jetons(Joueur)
     }
 
     class Deck {
-      +liste_carte: list(Carte)//
+      +liste_carte: list(Carte)
       +melanger()
       +piocher(): Carte
     }
