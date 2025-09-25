@@ -18,7 +18,7 @@ Pour afficher ce diagramme dans VScode :
 classDiagram
     class Joueur {
       +nom: str
-      +main: list(Carte)
+      +main: list[Carte]
       +jetons_restants: int
       +id_compte: int 
       +relancer()
@@ -28,21 +28,21 @@ classDiagram
     }
     
     class Carte {
-      +Valeur: Valeur(enum)
-      +Couleur: Couleur(enum)
+      +Valeur: Valeur[enum]
+      +Couleur: Couleur[enum]
     }
     
     class Manche {
-      +liste_joueurs:list(Joueur)
+      +liste_joueurs:list[Joueur]
       +pot:int
-      +riviere:list(Carte)
-      +revele:list(Bool)
-      +couche:list(Bool)
+      +riviere:list[Carte]
+      +revele:list[Bool]
+      +couche:list[Bool]
       +finir_manche()
     }
 
     class Table {
-      +liste_compte: list(Compte)
+      +liste_compte: list[Compte]
       +deck: deck 
       +commencer_manche()
     }
@@ -66,7 +66,7 @@ classDiagram
     }
 
     class Deck {
-      +liste_carte: list(Carte)
+      +liste_carte: list[Carte]
       +melanger()
       +piocher(): Carte
     }
