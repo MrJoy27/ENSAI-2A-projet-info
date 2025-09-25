@@ -5,7 +5,7 @@ import copy
 import random
 
 
-class _ListeCartes:
+class ListeCartes:
 
     """
      une liste de cartes
