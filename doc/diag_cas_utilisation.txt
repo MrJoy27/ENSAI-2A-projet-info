@@ -9,17 +9,15 @@ actor "Administrateur"   as admin
 actor "Joueur"           as joueur
 
 rectangle {
-  usecase "Créer un compte"       as inscription
-  usecase "jouer une partie"    as jouer
+  usecase "Jouer une partie"    as jouer
   usecase "Consulter ses statistiques" as stats
-  usecase "supprimer son compte" as supprimer
-  usecase "accrediter des jetons" as jetons
-  usecase "bannir un joueur" as ban
+  usecase "Accrediter des jetons" as jetons
+  usecase "Bannir un joueur" as ban
 }
 
-joueur --> inscription
+
 joueur --> jouer
-joueur --> supprimer
+joueur --> stats
 jetons --> joueur
 ban --> joueur
 
