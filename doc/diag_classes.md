@@ -25,6 +25,7 @@ classDiagram
       +suivre()
       +se_coucher()
       +jetons_restants()
+      +voir_main()
     }
     
     class Carte {
@@ -43,7 +44,7 @@ classDiagram
 
     class Table {
       +liste_compte: list[Compte]
-      +deck: deck 
+      +deck: Deck 
       +commencer_manche()
     }
     
@@ -63,6 +64,7 @@ classDiagram
     class Admin {
       +mdp:int
       +accrediter_jetons(Joueur)
+      +bannir(Joueur)
     }
 
     class Deck {
