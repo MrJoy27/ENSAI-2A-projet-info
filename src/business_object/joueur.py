@@ -47,11 +47,13 @@ class Joueur:
             manche.mise = nb_jetons
             manche.pot += nb_jetons
             self.jetons_restants -= nb_jetons
+            manche.tour_joue = True
 
     def suivre(self, manche):
         if self.jetons_restants >= manche.mise:
             self.jetons_restants -= manche.mise
             manche.pot += manche.mise
+            manche.tour_joue = True
         else:
             print("Pas assez de jetons")
 
@@ -61,3 +63,4 @@ class Joueur:
             if manche.joueurs[i] == self:
                 pos = i
         manche.couche[i] = True
+        manche.tour_joue = True

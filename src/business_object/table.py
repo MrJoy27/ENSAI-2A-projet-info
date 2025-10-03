@@ -22,7 +22,5 @@ class Table():
             riviere = []
             for _ in range(5):
                 riviere.append(piocher(self.deck))
-            revele = [False for _ in range(5)]
-            couche = [False for _ in range(len(liste_joueurs))]
-            manche = Manche(liste_joueurs, 0 , riviere, revele, couche)
+            manche = Manche(liste_joueurs, riviere)
             return manche
