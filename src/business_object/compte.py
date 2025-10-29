@@ -1,11 +1,11 @@
 class Compte():
-    def __init__(self, id, nom, mdp):
+    def __init__(self, nom, mdp=None, nb_jetons=0, nb_victoires=0, nb_parties=0, id=None):
         self.id = id
         self.nom = nom
         self.mdp = mdp
-        self.nb_jetons = 0
-        self.nb_victoires = 0
-        self.nb_parties = 0
+        self.nb_jetons = nb_jetons
+        self.nb_victoires = nb_victoires
+        self.nb_parties = nb_parties
 
     def rejoindre_table(self, table):
         if len(table.joueurs) < 5:
