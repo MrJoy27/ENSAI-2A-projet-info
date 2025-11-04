@@ -4,7 +4,7 @@ from utils.log_decorator import log
 from utils.securite import hash_password
 
 from business_object.joueur import Joueur
-from dao.joueur_dao import JoueurDao
+from dao.compte_dao import compteDao
 
 
 class JoueurService:

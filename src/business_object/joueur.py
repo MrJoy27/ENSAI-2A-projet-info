@@ -13,7 +13,7 @@ class Joueur:
 
     """
 
-    def __init__(self, nom, main, jetons_restants, id_compte):
+    def __init__(self, nom, main, jetons_restants, id_compte, mise=0):
         """Constructeur"""
         if not(isinstance(nom, str)):
             raise TypeError("nom doit etre de type str")
@@ -23,10 +23,11 @@ class Joueur:
             raise TypeError("jetons_restants doit etre de type int")
         if not(isinstance(jetons_restants, int)):
             raise TypeError("id_compte doit etre de type int")
-        self.nom= nom
-        self.main=main
-        self.jetons_restants=jetons_restants
-        self.id_compte=id_compte
+        self.nom = nom
+        self.main = main
+        self.jetons_restants = jetons_restants
+        self.id_compte = id_compte
+        self.mise = mise
 
     def __str__(self):
         """Permet d'afficher les informations du joueur sans ses cartes qui restent cachés"""
@@ -37,6 +38,22 @@ class Joueur:
 
     def voir_jetons_restants(self):
         print(self.jetons_restants)
+
+    def small_blind(self, nb, manche):
+        if self.jetons_restants < nb:
+            print("Pas assez de jetons pour la small blind")
+        else:
+            manche.pot += nb
+            self.jetons_restants -= nb
+            self.mise = nb
+    
+    def big_blind(self, nb, manche):
+        if self.jetons_restants < nb:
+            print("Pas assez de jetons pour la big blind")
+        else:
+            manche.pot += nb
+            self.jetons_restants -= nb
+            self.mise = nb
     
     def relancer(self, nb_jetons, manche):
         if nb_jetons > self.jetons_restants:
@@ -47,11 +64,15 @@ class Joueur:
             manche.mise = nb_jetons
             manche.pot += nb_jetons
             self.jetons_restants -= nb_jetons
+            self.mise = nb_jetons
+            manche.tour_joue = True
 
     def suivre(self, manche):
         if self.jetons_restants >= manche.mise:
             self.jetons_restants -= manche.mise
             manche.pot += manche.mise
+            self.mise = manche.mise
+            manche.tour_joue = True
         else:
             print("Pas assez de jetons")
 
@@ -61,3 +82,4 @@ class Joueur:
             if manche.joueurs[i] == self:
                 pos = i
         manche.couche[i] = True
+        manche.tour_joue = True

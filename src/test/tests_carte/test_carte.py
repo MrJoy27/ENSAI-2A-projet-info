@@ -1,4 +1,4 @@
-from src.business_object.carte.carte import Carte, Valeur, Couleur
+from business_object.carte.carte import Carte, Valeur, Couleur
 import pytest
 
 def test_valeur():
