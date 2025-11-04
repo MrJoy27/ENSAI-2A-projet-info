@@ -1,113 +1,112 @@
-import unittest
+import pytest
+from carte import Carte, ListeCartes, Combinaison
 
-class TestCombinaison(unittest.TestCase):
+def test_quinte_flush_royale():
+    main = ListeCartes([
+        Carte("Dix", "Coeur"),
+        Carte("Valet", "Coeur"),
+        Carte("Dame", "Coeur"),
+        Carte("Roi", "Coeur"),
+        Carte("As", "Coeur")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Quinte Flush Royale"
 
-    def test_quinte_flush_royale(self):
-        main = ListeCartes([
-            Carte("Dix", "Cœur"),
-            Carte("Valet", "Cœur"),
-            Carte("Dame", "Cœur"),
-            Carte("Roi", "Cœur"),
-            Carte("As", "Cœur")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Quinte Flush Royale")
+def test_quinte_flush():
+    main = ListeCartes([
+        Carte("Six", "Pique"),
+        Carte("Sept", "Pique"),
+        Carte("Huit", "Pique"),
+        Carte("Neuf", "Pique"),
+        Carte("Dix", "Pique")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Quinte Flush"
 
-    def test_quinte_flush(self):
-        main = ListeCartes([
-            Carte("Six", "Pique"),
-            Carte("Sept", "Pique"),
-            Carte("Huit", "Pique"),
-            Carte("Neuf", "Pique"),
-            Carte("Dix", "Pique")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Quinte Flush")
+def test_carre():
+    main = ListeCartes([
+        Carte("As", "Trefle"),
+        Carte("As", "Coeur"),
+        Carte("As", "Pique"),
+        Carte("As", "Carreau"),
+        Carte("Roi", "Coeur")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Carré"
 
-    def test_carre(self):
-        main = ListeCartes([
-            Carte("As", "Trèfle"),
-            Carte("As", "Cœur"),
-            Carte("As", "Pique"),
-            Carte("As", "Carreau"),
-            Carte("Roi", "Cœur")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Carré")
+def test_full():
+    main = ListeCartes([
+        Carte("Dame", "Trefle"),
+        Carte("Dame", "Coeur"),
+        Carte("Dame", "Carreau"),
+        Carte("Neuf", "Trefle"),
+        Carte("Neuf", "Coeur")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Full"
 
-    def test_full(self):
-        main = ListeCartes([
-            Carte("Dame", "Trèfle"),
-            Carte("Dame", "Cœur"),
-            Carte("Dame", "Carreau"),
-            Carte("Neuf", "Trèfle"),
-            Carte("Neuf", "Cœur")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Full")
+def test_couleur():
+    main = ListeCartes([
+        Carte("Deux", "Carreau"),
+        Carte("Cinq", "Carreau"),
+        Carte("Neuf", "Carreau"),
+        Carte("Valet", "Carreau"),
+        Carte("Roi", "Carreau")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Couleur"
 
-    def test_couleur(self):
-        main = ListeCartes([
-            Carte("Deux", "Carreau"),
-            Carte("Cinq", "Carreau"),
-            Carte("Neuf", "Carreau"),
-            Carte("Valet", "Carreau"),
-            Carte("Roi", "Carreau")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Couleur")
+def test_quinte():
+    main = ListeCartes([
+        Carte("Cinq", "Trefle"),
+        Carte("Six", "Coeur"),
+        Carte("Sept", "Carreau"),
+        Carte("Huit", "Pique"),
+        Carte("Neuf", "Trefle")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Quinte"
 
-    def test_quinte(self):
-        main = ListeCartes([
-            Carte("Cinq", "Trèfle"),
-            Carte("Six", "Cœur"),
-            Carte("Sept", "Carreau"),
-            Carte("Huit", "Pique"),
-            Carte("Neuf", "Trèfle")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Quinte")
+def test_brelan():
+    main = ListeCartes([
+        Carte("Valet", "Carreau"),
+        Carte("Valet", "Trefle"),
+        Carte("Valet", "Coeur"),
+        Carte("Trois", "Carreau"),
+        Carte("Sept", "Pique")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Brelan"
 
-    def test_brelan(self):
-        main = ListeCartes([
-            Carte("Valet", "Carreau"),
-            Carte("Valet", "Trèfle"),
-            Carte("Valet", "Cœur"),
-            Carte("Trois", "Carreau"),
-            Carte("Sept", "Pique")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Brelan")
+def test_double_paire():
+    main = ListeCartes([
+        Carte("Dix", "Carreau"),
+        Carte("Dix", "Trefle"),
+        Carte("Roi", "Coeur"),
+        Carte("Roi", "Pique"),
+        Carte("Deux", "Coeur")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Double Paire"
 
-    def test_double_paire(self):
-        main = ListeCartes([
-            Carte("Dix", "Carreau"),
-            Carte("Dix", "Trèfle"),
-            Carte("Roi", "Cœur"),
-            Carte("Roi", "Pique"),
-            Carte("Deux", "Cœur")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Double Paire")
+def test_paire():
+    main = ListeCartes([
+        Carte("Six", "Carreau"),
+        Carte("Six", "Trefle"),
+        Carte("Dix", "Coeur"),
+        Carte("Valet", "Pique"),
+        Carte("Roi", "Coeur")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Paire"
 
-    def test_paire(self):
-        main = ListeCartes([
-            Carte("Six", "Carreau"),
-            Carte("Six", "Trèfle"),
-            Carte("Dix", "Cœur"),
-            Carte("Valet", "Pique"),
-            Carte("Roi", "Cœur")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Paire")
-
-    def test_hauteur(self):
-        main = ListeCartes([
-            Carte("Deux", "Carreau"),
-            Carte("Cinq", "Trèfle"),
-            Carte("Sept", "Cœur"),
-            Carte("Valet", "Pique"),
-            Carte("Roi", "Cœur")
-        ])
-        combinaison = Combinaison(main)
-        self.assertEqual(combinaison.type, "Hauteur")
+def test_hauteur():
+    main = ListeCartes([
+        Carte("Deux", "Carreau"),
+        Carte("Cinq", "Trefle"),
+        Carte("Sept", "Coeur"),
+        Carte("Valet", "Pique"),
+        Carte("Roi", "Coeur")
+    ])
+    combinaison = Combinaison(main)
+    assert combinaison.type == "Hauteur"
