@@ -8,7 +8,7 @@ from utils.log_decorator import log
 from utils.singleton import Singleton
 from dao.db_connection import DBConnection
 
-from service.joueur_service import JoueurService
+from service.admin_service import adminService
 
 
 class ResetDatabase(metaclass=Singleton):
@@ -24,7 +24,7 @@ class ResetDatabase(metaclass=Singleton):
             mock.patch.dict(os.environ, {"POSTGRES_SCHEMA": "projet_test_dao"}).start()
             pop_data_path = "data/pop_db_test.sql"
         else:
-            pop_data_path = "data/pop_db.sql"
+            pop_data_path = "data/test_db.sql"
 
         dotenv.load_dotenv()
 
@@ -45,15 +45,15 @@ class ResetDatabase(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(create_schema)
                     cursor.execute(init_db_as_string)
-                    cursor.execute(pop_db_as_string)
+                    # cursor.execute(pop_db_as_string)
         except Exception as e:
             logging.info(e)
             raise
 
         # Appliquer le hashage des mots de passe à chaque joueur
-        joueur_service = JoueurService()
-        for j in joueur_service.lister_tous(inclure_mdp=True):
-            joueur_service.modifier(j)
+        aservice = adminService()
+        for j in aservice.lister_tous(inclure_mdp=True):
+            aservice.modifier(j)
 
         return True
 

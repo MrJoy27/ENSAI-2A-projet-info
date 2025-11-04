@@ -38,6 +38,6 @@ class compteService:
         return compteDao().supprimer(compte)
 
     @log
-    def se_connecter(self, nom, mdp) -> compte:
+    def se_connecter(self, nom, mdp) -> Compte:
         """Se connecter à partir de nom et mdp"""
         return compteDao().se_connecter(nom, hash_password(mdp, nom))
