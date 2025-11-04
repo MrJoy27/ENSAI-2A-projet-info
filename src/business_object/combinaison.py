@@ -6,11 +6,16 @@ class Combinaison():
             raise TypeError("liste_cartes doit etre de type liste_cartes")
         if len(liste_cartes)!=5:
             raise ValueError("liste_cartes doit etre de taille 5")
-        self.liste_cartes==liste_cartes
+        self.liste_cartes=liste_cartes
         #Quinte flush royale
         couleur=liste_cartes[0].couleur
         ordre=["As","Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi"]
         est_couleur=True
+        est_quinte=False
+        brelan=False
+        paire1=False
+        paire2=False
+        carre=False
         cpt_carte=[0 for i in range(13)]
         #creation de cpt_cartes et de est_couleur
         for carte in self.liste_cartes:
@@ -18,17 +23,17 @@ class Combinaison():
                 est_couleur=False
             cpt_carte[ordre.index(carte.valeur)]+=1
         #quinte
-        for i in range(ordre_verif-5):
+        for i in range(8):
             if cpt_carte[i]==1 and cpt_carte[i+1]==1 and cpt_carte[i+2]==1 and cpt_carte[i+3]==1 and cpt_carte[i+4]==1:
                 est_quinte=True    
         #carre brelan et paire
         for i in range(13):
-            if cpt_carte==4:
-                carre
+            if cpt_carte[i]==4:
+                carre=True
                 break
-            elif cpt_carte==3:
+            elif cpt_carte[i]==3:
                 brelan=True
-            elif cpt_carte==2 and not(paire1):
+            elif cpt_carte[i]==2 and not(paire1):
                 paire1=True
             else:
                 if cpt_carte==2:
