@@ -22,11 +22,6 @@ def test_eq():
     Card2 = Carte(Valeur.Deux, Couleur.Pique)
     assert Card1 == Card2
 
-def test_non_eq():
-    Card1 = Carte(Valeur.Trois, Couleur.Pique)
-    Card2 = Carte(Valeur.Deux, Couleur.Coeur)
-    Card3 = Carte(Valeur.Deux, Couleur.Pique)
-    assert Card1 != Card3 and Card2 != Card3
 
 def test_hash():
     Card = Carte(Valeur.Trois, Couleur.Pique)

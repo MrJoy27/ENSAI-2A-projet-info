@@ -53,11 +53,6 @@ class Carte:
     def __repr__(self):
         return f"Carte(Valeur.{self.__valeur}, Couleur.{self.__couleur})"
 
-    def __eq__(self, card):
-        if not isinstance(card, Carte):
-            raise TypeError("l'argument doit être une carte")
-        return self.__valeur == card.__valeur and self.__couleur == card.__couleur
-
     def __hash__(self):
         return hash((self.__valeur, self.__couleur))
 
