@@ -3,7 +3,7 @@
 -----------------------------------------------------
 DROP TABLE IF EXISTS compte CASCADE ;
 CREATE TABLE compte(
-    id_joueur     SERIAL PRIMARY KEY,
+    id     SERIAL PRIMARY KEY,
     nom           VARCHAR(30) UNIQUE,
     mdp           VARCHAR(256),
     nb_jetons     INTEGER,
