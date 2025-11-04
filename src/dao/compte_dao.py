@@ -33,10 +33,10 @@ class compteDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "INSERT INTO compte(nom, mdp, nb_jetons, nb_victoires, nb_parties) VALUES"
-                        "(%(pseudo)s, %(mdp)s, %(nb_jetons)s, %(nb_victoires)s, %(nb_parties)s)  "
+                        "(%(nom)s, %(mdp)s, %(nb_jetons)s, %(nb_victoires)s, %(nb_parties)s)  "
                         "  RETURNING id;                                                         ",
                         {
-                            "pseudo": compte.pseudo,
+                            "nom": compte.nom,
                             "mdp": compte.mdp,
                             "nb_jetons": compte.nb_jetons,
                             "nb_victoires": compte.nb_victoires,
@@ -75,7 +75,7 @@ class compteDao(metaclass=Singleton):
                         "SELECT *                           "
                         "  FROM compte                      "
                         " WHERE id_compte = %(id_compte)s;  ",
-                        {"id": id_compte},
+                        {"id_compte": id_compte},
                     )
                     res = cursor.fetchone()
         except Exception as e:
@@ -204,8 +204,8 @@ class compteDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def se_connecter(self, nom, mdp) -> compte:
-        """se connecter grâce à son pseudo et son mot de passe
+    def se_connecter(self, nom, mdp) -> Compte:
+        """se connecter grâce à son nom et son mot de passe
 
         Parameters
         ----------
