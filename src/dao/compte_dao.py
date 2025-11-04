@@ -73,7 +73,7 @@ class compteDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "UPDATE compte                                      "
-                        "       mdp         = %(mdp)s,                      "
+                        "       mdp = %(mdp)s,                              "
                         " WHERE id = %(id)s;                                ",
                         {
                             "mdp": compte.mdp,
