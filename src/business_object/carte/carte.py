@@ -62,23 +62,23 @@ class Carte:
         return hash((self.__valeur, self.__couleur))
 
     def __eq__(self,other):
-        return self.valeur==other.valeur
+        return self.__valeur==other.__valeur
     
     def __ne__(self,other):
-        return self.valeur!=other.valeur
+        return self.__valeur!=other.__valeur
 
     def __lt__(self,other):
-        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
-        ordre.index(self.valeur)<ordre.index(other.valeur)
+        ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
+        ordre.index(self.__valeur)<ordre.index(other.__valeur)
 
     def __gt__(self,other):
-        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
-        ordre.index(self.valeur)>ordre.index(other.valeur)
+        ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
+        ordre.index(self.__valeur)>ordre.index(other.__valeur)
 
     def __le__(self,other):
-        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
-        ordre.index(self.valeur)<=ordre.index(other.valeur)
+        ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
+        ordre.index(self.__valeur)<=ordre.index(other.__valeur)
 
     def __ge__(self,other):
-        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
-        ordre.index(self.valeur)>=ordre.index(other.valeur)
+        ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
+        ordre.index(self.__valeur)>=ordre.index(other.__valeur)

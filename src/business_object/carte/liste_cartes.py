@@ -1,6 +1,6 @@
 """Implémentation de la classe _ListeCartes."""
 
-from src.business_object.carte.carte import Carte
+from business_object.carte.carte import Carte
 import copy
 import random
 
@@ -27,7 +27,7 @@ class ListeCartes:
         return copy.deepcopy(self.__cartes)
 
     def __eq__(self, liste_cartes):
-        if not isinstance(liste_cartes, _ListeCartes):
+        if not isinstance(liste_cartes, ListeCartes):
             return False
         else:
             for card in self.__cartes:
