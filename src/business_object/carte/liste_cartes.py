@@ -110,3 +110,5 @@ class ListeCartes:
                              f"0 et {len(self.__cartes)-1} inclus, "
                              f"mais l'indice est {indice}.")
         return self.__cartes.pop(int(indice))
+    def max(self):
+        return max(self.__cartes)

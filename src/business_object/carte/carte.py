@@ -60,3 +60,25 @@ class Carte:
 
     def __hash__(self):
         return hash((self.__valeur, self.__couleur))
+
+    def __eq__(self,other):
+        return self.valeur==other.valeur
+    
+    def __ne__(self,other):
+        return self.valeur!=other.valeur
+
+    def __lt__(self,other):
+        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
+        ordre.index(self.valeur)<ordre.index(other.valeur)
+
+    def __gt__(self,other):
+        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
+        ordre.index(self.valeur)>ordre.index(other.valeur)
+
+    def __le__(self,other):
+        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
+        ordre.index(self.valeur)<=ordre.index(other.valeur)
+
+    def __ge__(self,other):
+        ordre=["2","3","4","5","6","7","8","9","10","Valet","Dame","Roi","As"]
+        ordre.index(self.valeur)>=ordre.index(other.valeur)
