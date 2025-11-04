@@ -2,7 +2,7 @@ from tabulate import tabulate
 
 from utils.log_decorator import log
 from utils.securite import hash_password
-
+from business_object.compte import Compte
 from business_object.admin import Admin
 from dao.admin_dao import adminDao
 
@@ -11,16 +11,16 @@ class adminService:
     """Classe contenant les méthodes de service des admins"""
 
     @log
-    def lister_tous(self, inclure_mdp=False) -> list[Comptes]:
+    def lister_tous(self, inclure_mdp=False) -> list[Compte]:
         """Lister tous les admins
         Si inclure_mdp=True, les mots de passe seront inclus
         Par défaut, tous les mdp des admins sont à None
         """
         comptes = adminDao().lister_tous()
         if not inclure_mdp:
-            for j in admins:
+            for j in comptes:
                 j.mdp = None
-        return admins
+        return comptes
 
     @log
     def trouver_par_id(self, id_compte) -> Compte:
@@ -28,7 +28,7 @@ class adminService:
         return adminDao().trouver_par_id(id_admin)
 
     @log
-    def crediter(self, id, nb_jetons) -> admin:
+    def crediter(self, id, nb_jetons):
         """Crédit d'un compte"""
         adminDao().modifier(id, nb_jetons)
 

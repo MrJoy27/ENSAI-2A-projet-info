@@ -4,7 +4,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 
-from service.joueur_service import JoueurService
+from service.joueur_service import compteService
+from service.admin_service import adminService
 from utils.log_init import initialiser_logs
 
 app = FastAPI(title="Mon webservice")
@@ -12,7 +13,8 @@ app = FastAPI(title="Mon webservice")
 
 initialiser_logs("Webservice")
 
-joueur_service = JoueurService()
+joueur_service = compteService()
+aservice = adminService()
 
 
 @app.get("/", include_in_schema=False)
@@ -25,7 +27,7 @@ async def redirect_to_docs():
 async def lister_tous_joueurs():
     """Lister tous les joueurs"""
     logging.info("Lister tous les joueurs")
-    liste_joueurs = joueur_service.lister_tous()
+    liste_joueurs = aservice.lister_tous()
 
     liste_model = []
     for joueur in liste_joueurs:

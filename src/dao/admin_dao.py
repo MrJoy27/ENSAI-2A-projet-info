@@ -2,6 +2,8 @@ import logging
 from utils.singleton import Singleton
 from utils.log_decorator import log
 from dao.db_connection import DBConnection
+from business_object.compte import Compte
+from business_object.admin import Admin
 
 class adminDao(metaclass=Singleton):
     """Classe contenant les méthodes pour accéder aux comptes de la base de données"""
@@ -158,7 +160,7 @@ class adminDao(metaclass=Singleton):
         return res > 0
 
     @log
-    def se_connecter(self, nom, mdp) -> Compte:
+    def se_connecter(self, nom, mdp) -> Admin:
         """se connecter grâce à son nom et son mot de passe
 
         Parameters
@@ -191,12 +193,9 @@ class adminDao(metaclass=Singleton):
         compte = None
 
         if res:
-            compte = Compte(
+            admin = Admin(
                 nom=res["nom"],
                 mdp=res["mdp"],
-                nb_jetons=res["nb_jetons"],
-                nb_victoires=res["nb_victoires"],
-                nb_parties=res["nb_parties"]
             )
 
-        return compte
+        return admin
