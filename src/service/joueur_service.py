@@ -12,18 +12,9 @@ class compteService:
     """Classe contenant les méthodes de service des comptes"""
 
     @log
-    def creer(self, nom, mdp, age, mail, fan_pokemon) -> Compte:
+    def creer(self, nom, mdp) -> Compte:
         """Création d'un compte à partir de ses attributs"""
-
-        nouveau_compte = Compte(
-            nom=nom,
-            mdp=hash_password(mdp, nom),
-            age=age,
-            mail=mail,
-            fan_pokemon=fan_pokemon,
-        )
-
-        return nouveau_compte if compteDao().creer(nouveau_compte) else None
+        return Compte(nom, mdp) if compteDao().creer(nom, mdp) else None
 
     @log
     def modifier(self, compte) -> Compte:
