@@ -27,6 +27,13 @@ def test_hash():
     Card = Carte(Valeur.Trois, Couleur.Pique)
     assert hash(Card) == hash((Valeur.Trois, Couleur.Pique))
 
-
+def test_comp():
+    Card1 = Carte(Valeur.Trois, Couleur.Pique)
+    Card2 = Carte(Valeur.Sept, Couleur.Carreau)
+    assert Card1 < Card2
+def test_max():
+    liste=[Carte(Valeur.Cinq,Couleur.Pique), Carte(Valeur.Sept, Couleur.Carreau), Carte(Valeur.As, Couleur.Carreau)]
+    max_liste=max(liste)
+    assert max_liste==Carte(Valeur.As, Couleur.Carreau)
 if __name__ == "__main__":
     pytest.main([__file__])

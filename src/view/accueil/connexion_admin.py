@@ -3,10 +3,10 @@ from InquirerPy import inquirer
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
 
-from service.joueur_service import compteService
+from service.admin_service import adminService
 
 
-class ConnexionVue(VueAbstraite):
+class ConnexionAdmin(VueAbstraite):
     """Vue de Connexion (saisie de pseudo et mdp)"""
 
     def choisir_menu(self):
@@ -15,16 +15,16 @@ class ConnexionVue(VueAbstraite):
         mdp = inquirer.secret(message="Entrez votre mot de passe :").execute()
 
         # Appel du service pour trouver le joueur
-        joueur = compteService().se_connecter(pseudo, mdp)
+        admin = adminService().se_connecter(pseudo, mdp)
 
         # Si le joueur a été trouvé à partir des ses identifiants de connexion
-        if joueur:
-            message = f"Vous êtes connecté sous le pseudo {joueur.nom}"
-            Session().connexion(joueur)
+        if admin:
+            message = f"Vous êtes connecté en tant qu'administrateur"
+            Session().connexion(admin)
 
-            from view.menu_joueur_vue import MenuJoueurVue
+            from view.menu_admin_vue import MenuAdminVue
 
-            return MenuJoueurVue(message)
+            return MenuAdminVue(message)
 
         message = "Erreur de connexion (pseudo ou mot de passe invalide)"
         from view.accueil.accueil_vue import AccueilVue

@@ -28,7 +28,7 @@ class adminDao(metaclass=Singleton):
                     cursor.execute(
                         "SELECT *                           "
                         "  FROM compte                      "
-                        " WHERE id_compte = %(id_compte)s;  ",
+                        " WHERE id = %(id_compte)s;  ",
                         {"id_compte": id_compte},
                     )
                     res = cursor.fetchone()
@@ -80,6 +80,7 @@ class adminDao(metaclass=Singleton):
                 compte = Compte(
                     id=row["id"],
                     nom=row["nom"],
+                    nb_jetons=row["nb_jetons"],
                     nb_victoires=row["nb_victoires"],
                     nb_parties=row["nb_parties"]
                 )
@@ -87,7 +88,7 @@ class adminDao(metaclass=Singleton):
         return liste_comptes
 
     @log
-    def crediter(self, id, nb_jetons) -> bool:
+    def crediter(self, nom, nb_jetons) -> bool:
         """Modification d'un compte dans la base de données
 
         Parameters
@@ -108,19 +109,11 @@ class adminDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "UPDATE compte                                      "
-                        "   SET nom         = %(nom)s,                      "
-                        "       mdp         = %(mdp)s,                      "
-                        "       nb_jetons   = %(nb_jetons)s,                "
-                        "       nb_victoires= %(nb_victoires)s,             "
-                        "       nb_parties  = %(nb_parties)s                "
-                        " WHERE id = %(id)s;                                ",
+                        "   SET nb_jetons   = nb_jetons + %(nb_jetons)s     "
+                        " WHERE nom = %(nom)s;                                ",
                         {
-                            "nom": compte.nom,
-                            "mdp": compte.mdp,
-                            "nb_jetons": compte.nb_jetons,
-                            "nb_victoires": compte.nb_victoires,
-                            "nb_parties": compte.nb_parties,
-                            "id": id,
+                            "nb_jetons": nb_jetons,
+                            "nom": nom,
                         },
                     )
                     res = cursor.rowcount
@@ -130,7 +123,7 @@ class adminDao(metaclass=Singleton):
         return res == 1
 
     @log
-    def supprimer(self, id) -> bool:
+    def supprimer(self, nom) -> bool:
         """Suppression d'un compte dans la base de données
 
         Parameters
@@ -146,11 +139,11 @@ class adminDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    # Supprimer le compte d'un compte
+                    # Supprimer un compte
                     cursor.execute(
-                        "DELETE FROM compte                  "
-                        " WHERE id=%(id)s                    ",
-                        {"id": id},
+                        "DELETE FROM compte                    "
+                        " WHERE nom=%(nom)s                    ",
+                        {"nom": nom},
                     )
                     res = cursor.rowcount
         except Exception as e:
@@ -181,8 +174,8 @@ class adminDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "SELECT *                           "
-                        "  FROM compte                      "
-                        " WHERE nom = %(nom)s         "
+                        "  FROM adm                         "
+                        " WHERE nom = %(nom)s               "
                         "   AND mdp = %(mdp)s;              ",
                         {"nom": nom, "mdp": mdp},
                     )

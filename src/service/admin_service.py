@@ -25,24 +25,24 @@ class adminService:
     @log
     def trouver_par_id(self, id_compte) -> Compte:
         """Trouver un compte à partir de son id"""
-        return adminDao().trouver_par_id(id_admin)
+        return adminDao().trouver_par_id(id_compte)
 
     @log
-    def crediter(self, id, nb_jetons):
+    def crediter(self, nom, nb_jetons):
         """Crédit d'un compte"""
-        adminDao().modifier(id, nb_jetons)
+        return adminDao().crediter(nom, nb_jetons)
 
     @log
-    def supprimer(self, id) -> bool:
+    def supprimer(self, nom) -> bool:
         """Supprimer un compte à partir de son id"""
-        return adminDao().supprimer(id)
+        return adminDao().supprimer(nom)
 
     @log
     def afficher_tous(self) -> str:
         """Afficher tous les comptes
         Sortie : Une chaine de caractères mise sous forme de tableau
         """
-        entetes = ["nom"]
+        entetes = ["nom", "nb_jetons", "nb_victoires", "nb_parties"]
 
         comptes = adminDao().lister_tous()
 
@@ -65,7 +65,7 @@ class adminService:
     @log
     def se_connecter(self, nom, mdp) -> Admin:
         """Se connecter à partir de nom et mdp"""
-        return adminDao().se_connecter(nom, hash_password(mdp, nom))
+        return adminDao().se_connecter(nom, mdp)
 
     @log
     def pseudo_deja_utilise(self, nom) -> bool:

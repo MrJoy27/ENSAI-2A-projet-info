@@ -24,8 +24,8 @@ class AccueilVue(VueAbstraite):
             message="Faites votre choix : ",
             choices=[
                 "Se connecter",
+                "Connexion admin",
                 "Créer un compte",
-                "Ré-initialiser la base de données",
                 "Infos de session",
                 "Quitter",
             ],
@@ -40,6 +40,11 @@ class AccueilVue(VueAbstraite):
 
                 return ConnexionVue("Connexion à l'application")
 
+            case "Connexion admin":
+                from view.accueil.connexion_admin import ConnexionAdmin
+                
+                return ConnexionAdmin("Connexion administrateur")
+
             case "Créer un compte":
                 from view.accueil.inscription_vue import InscriptionVue
 
@@ -47,10 +52,3 @@ class AccueilVue(VueAbstraite):
 
             case "Infos de session":
                 return AccueilVue(Session().afficher())
-
-            case "Ré-initialiser la base de données":
-                succes = ResetDatabase().lancer()
-                message = (
-                    f"Ré-initilisation de la base de données - {'SUCCES' if succes else 'ECHEC'}"
-                )
-                return AccueilVue(message)

@@ -64,16 +64,16 @@ class Carte:
 
     def __lt__(self,other):
         ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
-        ordre.index(self.__valeur)<ordre.index(other.__valeur)
+        return ordre.index(self.__valeur)<ordre.index(other.__valeur)
 
     def __gt__(self,other):
         ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
-        ordre.index(self.__valeur)>ordre.index(other.__valeur)
+        return ordre.index(self.__valeur)>ordre.index(other.__valeur)
 
     def __le__(self,other):
         ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
-        ordre.index(self.__valeur)<=ordre.index(other.__valeur)
+        return ordre.index(self.__valeur)<=ordre.index(other.__valeur)
 
     def __ge__(self,other):
         ordre=["Deux","Trois","Quatre","Cinq","Six","Sept","Huit","Neuf","Dix","Valet","Dame","Roi","As"]
-        ordre.index(self.__valeur)>=ordre.index(other.__valeur)
+        return ordre.index(self.__valeur)>=ordre.index(other.__valeur)

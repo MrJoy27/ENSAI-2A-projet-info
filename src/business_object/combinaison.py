@@ -38,7 +38,7 @@ class Combinaison():
             else:
                 if cpt_carte[i]==2:
                     paire2=True
-        if cpt_carte[9]==1 and cpt_carte[10]==1 and cpt_carte[11]==1 and cpt_carte[12]==1 and cpt_carte[0]==1 and couleur:
+        if cpt_carte[9]==1 and cpt_carte[10]==1 and cpt_carte[11]==1 and cpt_carte[12]==1 and cpt_carte[0]==1 and est_couleur:
             self.type="Quinte Flush Royale"
         elif est_quinte and est_couleur:
             self.type="Quinte Flush"
@@ -59,73 +59,97 @@ class Combinaison():
         else:
             self.type="Hauteur"        
     def __lt__(self,other):
-        combinaisons_poker = [
-        "Quinte Flush Royale",
-        "Quinte Flush",
-        "Carré",
-        "Full",
-        "Couleur",
-        "Quinte",
-        "Brelan",
-        "Double Paire",
+        combinaisons_poker=[
+        "Hauteur",
         "Paire",
-        "Hauteur"
+        "Double Paire",
+        "Brelan",
+        "Quinte",
+        "Couleur",
+        "Full",
+        "Carré",
+        "Quinte Flush",
+        "Quinte Flush Royale"
         ]
-            if combinaisons_poker.index(self.type)<combinaisons_poker.index(other.type):
+        if combinaisons_poker.index(self.type)<combinaisons_poker.index(other.type):
+            return True
+        elif combinaisons_poker.index(self.type)==combinaisons_poker.index(other.type):
+            if max(self.liste_cartes)<max(other.liste_cartes):
                 return True
-            elif combinaisons_poker.index(self.type)==combinaisons_poker.index(other.type):
-                if max(self.liste_cartes)<max(other.liste_cartes):
-                    return False
-                else
-                    return True
             else:
                 return False
+        else:
+            return False
     def __gt__(self,other):
-        combinaisons_poker = [
-        "Quinte Flush Royale",
-        "Quinte Flush",
-        "Carré",
-        "Full",
-        "Couleur",
-        "Quinte",
-        "Brelan",
-        "Double Paire",
+        combinaisons_poker=[
+        "Hauteur",
         "Paire",
-        "Hauteur"
+        "Double Paire",
+        "Brelan",
+        "Quinte",
+        "Couleur",
+        "Full",
+        "Carré",
+        "Quinte Flush",
+        "Quinte Flush Royale"
         ]
         if combinaisons_poker.index(self.type)>combinaisons_poker.index(other.type):
             return True
         elif combinaisons_poker.index(self.type)==combinaisons_poker.index(other.type):
             if max(self.liste_cartes)>max(other.liste_cartes):
-                return False
-            else
                 return True
+            else:
+                return False
         else:
             return False
-    def __gt__(self,other):
-        combinaisons_poker = [
-        "Quinte Flush Royale",
-        "Quinte Flush",
-        "Carré",
-        "Full",
-        "Couleur",
-        "Quinte",
-        "Brelan",
-        "Double Paire",
+    def __le__(self,other):
+        combinaisons_poker=[
+        "Hauteur",
         "Paire",
-        "Hauteur"
+        "Double Paire",
+        "Brelan",
+        "Quinte",
+        "Couleur",
+        "Full",
+        "Carré",
+        "Quinte Flush",
+        "Quinte Flush Royale"
+        ]
+        if combinaisons_poker.index(self.type)<combinaisons_poker.index(other.type):
+            return True
+        elif combinaisons_poker.index(self.type)==combinaisons_poker.index(other.type):
+            if max(self.liste_cartes)<=max(other.liste_cartes):
+                return True
+            else:
+                return False
+        else:
+            return False
+    def __ge__(self,other):
+        combinaisons_poker=[
+        "Hauteur",
+        "Paire",
+        "Double Paire",
+        "Brelan",
+        "Quinte",
+        "Couleur",
+        "Full",
+        "Carré",
+        "Quinte Flush",
+        "Quinte Flush Royale"
         ]
         if combinaisons_poker.index(self.type)>combinaisons_poker.index(other.type):
             return True
         elif combinaisons_poker.index(self.type)==combinaisons_poker.index(other.type):
-            if max(self.liste_cartes)>max(other.liste_cartes):
-                return False
-            else
+            if max(self.liste_cartes)>=max(other.liste_cartes):
+                print(max(self.liste_cartes),max(other.liste_cartes) )
                 return True
+            else:
+                return False
         else:
             return False
-            
-        
-                
-        
+    def __eq__(self,other):
+        return self.type==other.type and max(self.liste_cartes)==max(other.liste_cartes)
+    def __ne__(self,other):
+        return self.type!=other.type and max(self.liste_cartes)!=max(other.liste_cartes)
+    
                 
