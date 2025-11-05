@@ -1,4 +1,5 @@
 from random import randint
+from itertools import combinations
 
 class Manche():
     def __init__(self, liste_joueurs, riviere, small_blind, big_blind):
@@ -53,5 +54,27 @@ class Manche():
                         self.revele[4] = True
             self.tour_joue = False
             tour += 1
-        
-            
+        non_couche=[]
+        for i in range(couche): 
+            if not couche[i]:
+                non_couche.append(joueurs[i])
+        meilleures_combinaisons=[]
+        for joueur in couche:
+            cartes=joueur.main+self.riviere
+            combinaisons=[]
+            possibilites=combinations(possibilites, cartes)
+            for possiblite in range(possibilites):
+                combinaisons.append(Combinaison(possibilite))
+            meilleures_combinaisons.append(max(combinaisons))
+        best=meilleures_combinaisons[0]
+        joueurs_gagnants=[]
+        for combi in meilleurs_combinaisons:
+            if combi>best:
+                best=combi
+                joueurs_gagnants=couche[i]
+            elif combi==best:
+                joueurs_gagnants.append(couche[i])
+        if len(joueurs_gagnants)==1:
+            #accrediter le joueur gagnant du pot
+        if len(joueurs_gagnants)>=2:
+            #diviser le pot en 2 puis distribuer aux joueurs
