@@ -122,6 +122,73 @@ class adminDao(metaclass=Singleton):
 
         return res == 1
 
+    def modifier_victoires(self, nom):
+        """Modification d'un compte dans la base de données
+
+        Parameters
+        ----------
+        compte : Compte
+
+        Returns
+        -------
+        created : bool
+            True si la modification est un succès
+            False sinon
+        """
+
+        res = None
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "UPDATE compte                                      "
+                        "   SET nb_victoires   = nb_victoires + 1           "
+                        "       nb_parties     = nb_parties + 1             "
+                        " WHERE nom = %(nom)s;                              ",
+                        {
+                            "nom": nom,
+                        },
+                    )
+                    res = cursor.rowcount
+        except Exception as e:
+            logging.info(e)
+
+        return res == 1
+
+    def modifier_parties(self, nom):
+        """Modification d'un compte dans la base de données
+
+        Parameters
+        ----------
+        compte : Compte
+
+        Returns
+        -------
+        created : bool
+            True si la modification est un succès
+            False sinon
+        """
+
+        res = None
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "UPDATE compte                                      "
+                        "   SET nb_parties   = nb_parties + 1               "
+                        " WHERE nom = %(nom)s;                              ",
+                        {
+                            "nom": nom,
+                        },
+                    )
+                    res = cursor.rowcount
+        except Exception as e:
+            logging.info(e)
+
+        return res == 1
+
     @log
     def supprimer(self, nom) -> bool:
         """Suppression d'un compte dans la base de données

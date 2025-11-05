@@ -1,17 +1,14 @@
 from InquirerPy import inquirer
 
-from business_object.compte import Compte
-
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
-from view.table_vue import MenuTableVue
 
 from service.joueur_service import compteService
 from service.admin_service import adminService
 
 
-class MenuJoueurVue(VueAbstraite):
-    """Vue du menu du joueur
+class MenuTableVue(VueAbstraite):
+    """Vue du menu d'une table
 
     Attributes
     ----------
@@ -38,10 +35,9 @@ class MenuJoueurVue(VueAbstraite):
         choix = inquirer.select(
             message="Faites votre choix : ",
             choices=[
-                "Rejoindre une table",
-                "Infos de session",
-                "Supprimer son compte",
-                "Se déconnecter"
+                "Regarder la rivière",
+                "Regarder sa main",
+                "",
             ],
         ).execute()
 
@@ -54,16 +50,6 @@ class MenuJoueurVue(VueAbstraite):
 
             case "Infos de session":
                 return MenuJoueurVue(Session().afficher())
-            
-            case "Supprimer son compte":
-                from view.accueil.accueil_vue import AccueilVue
-
-                nom = inquirer.text(message="Pseudo : ").execute()
-                mdp = inquirer.secret(message="Mot de passe : ").execute()
-                compte = Compte(nom=nom, mdp=mdp)
-                compteService().supprimer(compte)
-                
-                return AccueilVue("Compte supprimé")
 
             case "Rejoindre une table":
                 pass

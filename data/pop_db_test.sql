@@ -8,4 +8,4 @@ INSERT INTO compte(nom, mdp, nb_jetons, nb_victoires, nb_parties) VALUES
 ('junior',     'aaaa',     158,     856,                1000);
 
 INSERT INTO adm(nom, mdp) VALUES
-('bloop', 'crab_love')
+('bloop', 'crab_love');

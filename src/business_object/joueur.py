@@ -13,7 +13,7 @@ class Joueur:
 
     """
 
-    def __init__(self, nom, main, jetons_restants, id_compte, mise=0):
+    def __init__(self, nom, main, jetons_restants, id_compte=None, mise=0):
         """Constructeur"""
         if not(isinstance(nom, str)):
             raise TypeError("nom doit etre de type str")
