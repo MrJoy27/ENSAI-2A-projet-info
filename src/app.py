@@ -47,21 +47,17 @@ class JoueurModel(BaseModel):
     """Définir un modèle Pydantic pour les Joueurs"""
 
     id_joueur: int | None = None  # Champ optionnel
-    pseudo: str
+    nom: str
     mdp: str
-    age: int
-    mail: str
-    fan_pokemon: bool
-
 
 @app.post("/joueur/", tags=["Joueurs"])
 async def creer_joueur(j: JoueurModel):
     """Créer un joueur"""
     logging.info("Créer un joueur")
-    if joueur_service.pseudo_deja_utilise(j.pseudo):
+    if aservice.pseudo_deja_utilise(j.nom):
         raise HTTPException(status_code=404, detail="Pseudo déjà utilisé")
 
-    joueur = joueur_service.creer(j.pseudo, j.mdp, j.age, j.mail, j.fan_pokemon)
+    joueur = joueur_service.creer(j.nom, j.mdp)
     if not joueur:
         raise HTTPException(status_code=404, detail="Erreur lors de la création du joueur")
 

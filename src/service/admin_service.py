@@ -66,3 +66,10 @@ class adminService:
     def se_connecter(self, nom, mdp) -> Admin:
         """Se connecter à partir de nom et mdp"""
         return adminDao().se_connecter(nom, hash_password(mdp, nom))
+
+    @log
+    def pseudo_deja_utilise(self, nom) -> bool:
+        """Vérifie si le pseudo est déjà utilisé
+        Retourne True si le pseudo existe déjà en BDD"""
+        joueurs = adminDao().lister_tous()
+        return nom in [j.nom for j in joueurs]

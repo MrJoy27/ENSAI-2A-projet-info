@@ -7,7 +7,7 @@ from unittest import mock
 from utils.log_decorator import log
 from utils.singleton import Singleton
 from dao.db_connection import DBConnection
-
+from service.joueur_service import compteService
 from service.admin_service import adminService
 
 
@@ -45,15 +45,16 @@ class ResetDatabase(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(create_schema)
                     cursor.execute(init_db_as_string)
-                    # cursor.execute(pop_db_as_string)
+                    cursor.execute(pop_db_as_string)
         except Exception as e:
             logging.info(e)
             raise
 
         # Appliquer le hashage des mots de passe à chaque joueur
         aservice = adminService()
+        cservice = compteService()
         for j in aservice.lister_tous(inclure_mdp=True):
-            aservice.modifier(j)
+            cservice.modifier(j)
 
         return True
 
