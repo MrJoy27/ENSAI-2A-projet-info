@@ -74,7 +74,12 @@ class Manche():
                 joueurs_gagnants=couche[i]
             elif combi==best:
                 joueurs_gagnants.append(couche[i])
+        ad=AdminDao()
         if len(joueurs_gagnants)==1:
-            #accrediter le joueur gagnant du pot
+            ad.crediter(joueurs_gagnants[0].nom, pot)
+            
         if len(joueurs_gagnants)>=2:
-            #diviser le pot en 2 puis distribuer aux joueurs
+            gain=pot/len(joueurs_gagnants)
+            for joueur in joueurs_gagnants:
+                ad.crediter(joueur, gain)
+        
