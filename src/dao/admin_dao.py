@@ -80,6 +80,7 @@ class adminDao(metaclass=Singleton):
                 compte = Compte(
                     id=row["id"],
                     nom=row["nom"],
+                    nb_jetons=row["nb_jetons"],
                     nb_victoires=row["nb_victoires"],
                     nb_parties=row["nb_parties"]
                 )
@@ -108,18 +109,10 @@ class adminDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "UPDATE compte                                      "
-                        "   SET nom         = %(nom)s,                      "
-                        "       mdp         = %(mdp)s,                      "
-                        "       nb_jetons   = %(nb_jetons)s,                "
-                        "       nb_victoires= %(nb_victoires)s,             "
-                        "       nb_parties  = %(nb_parties)s                "
+                        "   SET nb_jetons   = nb_jetons + %(nb_jetons)s     "
                         " WHERE id = %(id)s;                                ",
                         {
-                            "nom": compte.nom,
-                            "mdp": compte.mdp,
-                            "nb_jetons": compte.nb_jetons,
-                            "nb_victoires": compte.nb_victoires,
-                            "nb_parties": compte.nb_parties,
+                            "nb_jetons": nb_jetons,
                             "id": id,
                         },
                     )
@@ -181,8 +174,8 @@ class adminDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "SELECT *                           "
-                        "  FROM compte                      "
-                        " WHERE nom = %(nom)s         "
+                        "  FROM adm                         "
+                        " WHERE nom = %(nom)s               "
                         "   AND mdp = %(mdp)s;              ",
                         {"nom": nom, "mdp": mdp},
                     )

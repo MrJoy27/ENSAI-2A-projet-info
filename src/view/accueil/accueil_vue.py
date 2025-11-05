@@ -24,6 +24,7 @@ class AccueilVue(VueAbstraite):
             message="Faites votre choix : ",
             choices=[
                 "Se connecter",
+                "Connexion admin",
                 "Créer un compte",
                 "Ré-initialiser la base de données",
                 "Infos de session",
@@ -39,6 +40,11 @@ class AccueilVue(VueAbstraite):
                 from view.accueil.connexion_vue import ConnexionVue
 
                 return ConnexionVue("Connexion à l'application")
+
+            case "Connexion admin":
+                from view.accueil.connexion_admin import ConnexionAdmin
+                
+                return ConnexionAdmin("Connexion administrateur")
 
             case "Créer un compte":
                 from view.accueil.inscription_vue import InscriptionVue

@@ -30,7 +30,7 @@ class adminService:
     @log
     def crediter(self, id, nb_jetons):
         """Crédit d'un compte"""
-        adminDao().modifier(id, nb_jetons)
+        return adminDao().crediter(id, nb_jetons)
 
     @log
     def supprimer(self, id) -> bool:
@@ -65,7 +65,7 @@ class adminService:
     @log
     def se_connecter(self, nom, mdp) -> Admin:
         """Se connecter à partir de nom et mdp"""
-        return adminDao().se_connecter(nom, hash_password(mdp, nom))
+        return adminDao().se_connecter(nom, mdp)
 
     @log
     def pseudo_deja_utilise(self, nom) -> bool:

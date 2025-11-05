@@ -7,7 +7,7 @@ from service.joueur_service import compteService
 from service.admin_service import adminService
 
 
-class MenuJoueurVue(VueAbstraite):
+class MenuAdminVue(VueAbstraite):
     """Vue du menu du joueur
 
     Attributes
@@ -36,7 +36,7 @@ class MenuJoueurVue(VueAbstraite):
             message="Faites votre choix : ",
             choices=[
                 "Afficher les joueurs de la base de données",
-                "Afficher des pokemons (par appel à un Webservice)",
+                "Créditer un compte",
                 "Infos de session",
                 "Se déconnecter",
             ],
@@ -50,9 +50,17 @@ class MenuJoueurVue(VueAbstraite):
                 return AccueilVue()
 
             case "Infos de session":
-                return MenuJoueurVue(Session().afficher())
+                return MenuAdminVue(Session().afficher())
 
-            case "Afficher des pokemons (par appel à un Webservice)":
-                from view.pokemon_vue import PokemonVue
+            case "Afficher les joueurs de la base de données":
+                joueurs_str = adminService().afficher_tous()
+                return MenuAdminVue(joueurs_str)
 
-                return PokemonVue()
+            case "Créditer un compte":
+                id = inquirer.text(message="Id du compte à créditer : ").execute()
+                nbj = int(inquirer.text(message="Nombre de jetons à créditer : ").execute())
+                if not isinstance(nbj, int):
+                    raise TypeError("Le nombre de jetons doit être un entier")
+                else:
+                    adminService().crediter(id, nbj)
+                return MenuAdminVue("Compte crédité")
