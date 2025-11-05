@@ -12,7 +12,7 @@ class VueAbstraite(ABC):
 
     def nettoyer_console(self):
         """Insérer des lignes vides pour simuler un nettoyage"""
-        for _ in range(30):
+        for _ in range(2):
             print("")
 
     def afficher(self) -> None:

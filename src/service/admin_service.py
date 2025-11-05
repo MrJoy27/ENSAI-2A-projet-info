@@ -28,14 +28,14 @@ class adminService:
         return adminDao().trouver_par_id(id_compte)
 
     @log
-    def crediter(self, id, nb_jetons):
+    def crediter(self, nom, nb_jetons):
         """Crédit d'un compte"""
-        return adminDao().crediter(id, nb_jetons)
+        return adminDao().crediter(nom, nb_jetons)
 
     @log
-    def supprimer(self, id) -> bool:
+    def supprimer(self, nom) -> bool:
         """Supprimer un compte à partir de son id"""
-        return adminDao().supprimer(id)
+        return adminDao().supprimer(nom)
 
     @log
     def afficher_tous(self) -> str:
