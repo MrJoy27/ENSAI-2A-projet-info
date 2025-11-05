@@ -40,13 +40,12 @@ async def lister_tous_joueurs():
 async def joueur_par_id(id_joueur: int):
     """Trouver un joueur à partir de son id"""
     logging.info("Trouver un joueur à partir de son id")
-    return joueur_service.trouver_par_id(id_joueur)
+    return aservice.trouver_par_id(id_joueur)
 
 
 class JoueurModel(BaseModel):
     """Définir un modèle Pydantic pour les Joueurs"""
 
-    id_joueur: int | None = None  # Champ optionnel
     nom: str
     mdp: str
 

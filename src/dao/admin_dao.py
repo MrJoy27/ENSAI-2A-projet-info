@@ -28,7 +28,7 @@ class adminDao(metaclass=Singleton):
                     cursor.execute(
                         "SELECT *                           "
                         "  FROM compte                      "
-                        " WHERE id_compte = %(id_compte)s;  ",
+                        " WHERE id = %(id_compte)s;  ",
                         {"id_compte": id_compte},
                     )
                     res = cursor.fetchone()

@@ -7,6 +7,10 @@ class Compte():
         self.nb_victoires = nb_victoires
         self.nb_parties = nb_parties
 
+    def as_list(self) -> list[str]:
+        """Retourne les attributs du joueur dans une liste"""
+        return [self.nom, self.nb_jetons, self.nb_victoires, self.nb_parties]
+
     def rejoindre_table(self, table):
         if len(table.joueurs) < 5:
             table.joueurs.append(self)

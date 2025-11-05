@@ -25,7 +25,7 @@ class adminService:
     @log
     def trouver_par_id(self, id_compte) -> Compte:
         """Trouver un compte à partir de son id"""
-        return adminDao().trouver_par_id(id_admin)
+        return adminDao().trouver_par_id(id_compte)
 
     @log
     def crediter(self, id, nb_jetons):
@@ -42,7 +42,7 @@ class adminService:
         """Afficher tous les comptes
         Sortie : Une chaine de caractères mise sous forme de tableau
         """
-        entetes = ["nom"]
+        entetes = ["nom", "nb_jetons", "nb_victoires", "nb_parties"]
 
         comptes = adminDao().lister_tous()
 
