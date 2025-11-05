@@ -1,14 +1,13 @@
 from .carte import Carte, Couleur, Valeur
 from .liste_cartes import ListeCartes
 
-from typing import Iterable, Dict, List, Any, Optional
 import random
 
 class DeckVideError(Exception):
-
+    pass
 
 class OrdreDistributionError(Exception):
-
+    pass
 
 class Deck:
 

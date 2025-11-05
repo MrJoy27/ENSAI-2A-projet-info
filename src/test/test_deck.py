@@ -1,6 +1,6 @@
 import pytest
-from deck import Deck, DeckVideError
-from carte import Carte, Couleur, Valeur
+from business_object.carte.deck import Deck, DeckVideError
+from business_object.carte.carte import Carte, Couleur, Valeur
 
 
 def test_melanger_recree_paquet_52():
