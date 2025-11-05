@@ -4,6 +4,7 @@ from utils.log_decorator import log
 from dao.db_connection import DBConnection
 from business_object.compte import Compte
 from business_object.admin import Admin
+from typing import Optional
 
 class adminDao(metaclass=Singleton):
     """Classe contenant les méthodes pour accéder aux comptes de la base de données"""
@@ -250,7 +251,7 @@ class adminDao(metaclass=Singleton):
         except Exception as e:
             logging.info(e)
 
-        compte = None
+        admin = None
 
         if res:
             admin = Admin(

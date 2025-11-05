@@ -1,5 +1,5 @@
 from InquirerPy import inquirer
-
+from typing import Optional
 from utils.reset_database import ResetDatabase
 
 from view.vue_abstraite import VueAbstraite

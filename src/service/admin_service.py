@@ -5,6 +5,7 @@ from utils.securite import hash_password
 from business_object.compte import Compte
 from business_object.admin import Admin
 from dao.admin_dao import adminDao
+from typing import Optional
 
 
 class adminService:

@@ -35,8 +35,8 @@ class MenuTableVue(VueAbstraite):
         choix = inquirer.select(
             message="Faites votre choix : ",
             choices=[
-                "Regarder la rivière",
-                "Regarder sa main",
+                "Quitter la table",
+                "Joueurs à la table",
                 "",
             ],
         ).execute()

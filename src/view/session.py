@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from utils.singleton import Singleton
 
@@ -12,18 +13,23 @@ class Session(metaclass=Singleton):
 
     def __init__(self):
         """Création de la session"""
-        self.joueur = None
+        self.compte = None
+        self.table = None
         self.debut_connexion = None
 
-    def connexion(self, joueur):
+    def connexion(self, compte):
         """Enregistement des données en session"""
-        self.joueur = joueur
+        self.compte = compte
         self.debut_connexion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     def deconnexion(self):
         """Suppression des données de la session"""
-        self.joueur = None
+        self.compte = None
         self.debut_connexion = None
+        self.table = None
+
+    def rejoindre_table(self, table):
+        self.table = table
 
     def afficher(self) -> str:
         """Afficher les informations de connexion"""

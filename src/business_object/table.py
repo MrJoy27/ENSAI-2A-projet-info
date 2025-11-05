@@ -1,11 +1,12 @@
-from src.business_object.carte.deck import Deck
-from src.businees_object.manche import Manche
-from scrc.business_object.joueur import Joueur
+from business_object.carte.deck import Deck
+from businees_object.manche import Manche
+from business_object.joueur import Joueur
 
 class Table():
-    def __init__(self):
+    def __init__(self, id):
         self.liste_comptes = []
         self.deck = Deck()
+        self.id = id
     
     def commencer_manche(self):
         if len(self.liste_comptes) < 2:
@@ -24,3 +25,5 @@ class Table():
                 riviere.append(piocher(self.deck))
             manche = Manche(liste_joueurs, riviere)
             return manche
+
+liste_tables = []

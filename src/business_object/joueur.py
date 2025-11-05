@@ -1,4 +1,4 @@
-from src.business_object.carte.liste_cartes import ListeCartes
+from business_object.carte.liste_cartes import ListeCartes
 
 class Joueur:
     """
