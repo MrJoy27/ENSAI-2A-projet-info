@@ -25,7 +25,7 @@ class adminService:
     @log
     def trouver_par_id(self, id_compte) -> Compte:
         """Trouver un compte à partir de son id"""
-        return adminDao().trouver_par_id(id_admin)
+        return adminDao().trouver_par_id(id_compte)
 
     @log
     def crediter(self, id, nb_jetons):
@@ -42,7 +42,7 @@ class adminService:
         """Afficher tous les comptes
         Sortie : Une chaine de caractères mise sous forme de tableau
         """
-        entetes = ["nom"]
+        entetes = ["nom", "nb_jetons", "nb_victoires", "nb_parties"]
 
         comptes = adminDao().lister_tous()
 
@@ -66,3 +66,10 @@ class adminService:
     def se_connecter(self, nom, mdp) -> Admin:
         """Se connecter à partir de nom et mdp"""
         return adminDao().se_connecter(nom, hash_password(mdp, nom))
+
+    @log
+    def pseudo_deja_utilise(self, nom) -> bool:
+        """Vérifie si le pseudo est déjà utilisé
+        Retourne True si le pseudo existe déjà en BDD"""
+        joueurs = adminDao().lister_tous()
+        return nom in [j.nom for j in joueurs]

@@ -9,7 +9,7 @@ class compteDao(metaclass=Singleton):
     """Classe contenant les méthodes pour accéder aux comptes de la base de données"""
 
     @log
-    def creer(self, compte) -> bool:
+    def creer(self, nom, mdp) -> bool:
         """Creation d'un compte dans la base de données
 
         Parameters
@@ -22,7 +22,7 @@ class compteDao(metaclass=Singleton):
             True si la création est un succès
             False sinon
         """
-
+        compte = Compte(nom=nom, mdp=mdp)
         res = None
 
         try:
@@ -33,11 +33,11 @@ class compteDao(metaclass=Singleton):
                         "(%(nom)s, %(mdp)s, %(nb_jetons)s, %(nb_victoires)s, %(nb_parties)s)  "
                         "  RETURNING id;                                                         ",
                         {
-                            "nom": compte.nom,
-                            "mdp": compte.mdp,
-                            "nb_jetons": compte.nb_jetons,
-                            "nb_victoires": compte.nb_victoires,
-                            "nb_parties": compte.nb_parties,
+                            "nom": nom,
+                            "mdp": mdp,
+                            "nb_jetons": 0,
+                            "nb_victoires": 0,
+                            "nb_parties": 0,
                         },
                     )
                     res = cursor.fetchone()
