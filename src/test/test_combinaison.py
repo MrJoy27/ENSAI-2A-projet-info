@@ -323,3 +323,22 @@ def test_egalite_meme_combinaison_meme_valeur():
     combinaison2 = Combinaison(main2)
     assert combinaison1 == combinaison2
     assert not (combinaison1 != combinaison2)
+
+def test_tie_breaker_full():
+    main_full_1 = [
+        Carte(Valeur.Valet, Couleur.Coeur),
+        Carte(Valeur.Valet, Couleur.Carreau),
+        Carte(Valeur.Valet, Couleur.Trefle),
+        Carte(Valeur.Huit, Couleur.Coeur),
+        Carte(Valeur.Huit, Couleur.Trefle)
+    ]
+    main_full_2 = [
+        Carte(Valeur.As, Couleur.Carreau),
+        Carte(Valeur.As, Couleur.Trefle),
+        Carte(Valeur.As, Couleur.Pique),
+        Carte(Valeur.Roi, Couleur.Coeur),
+        Carte(Valeur.Roi, Couleur.Trefle)
+    ]
+    combinaison_full_1= Combinaison(main_full_1)
+    combinaison_full_2 = Combinaison(main_full_2)
+    assert combinaison_full_1 < combinaison_full_2
