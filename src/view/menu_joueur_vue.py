@@ -74,13 +74,16 @@ class MenuJoueurVue(VueAbstraite):
 
             case "Rejoindre une table":
                 compte = Session().compte
-                table = inquirer.select(
-                    message="Choisir une table à rejoindre",
-                    choices=[tab for tab in liste_tables if len(table.liste_comptes) < 10]
-                    )
-                table.liste_comptes.append(compte)
-                Session().rejoindre_table(table)
-                return MenuTableVue(f"Table {table.id} rejointe")
+                if [tab for tab in liste_tables if len(table.liste_comptes) < 10] != []:
+                    table = inquirer.select(
+                        message="Choisir une table à rejoindre",
+                        choices=[tab for tab in liste_tables if len(table.liste_comptes) < 10]
+                        )
+                    table.liste_comptes.append(compte)
+                    Session().rejoindre_table(table)
+                    return MenuTableVue(f"Table {table.id} rejointe")
+                else:
+                    return MenuJoueurVue("Aucune table disponible")
             
             case "Créer une table":
                 compte = Session().compte

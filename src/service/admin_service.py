@@ -24,9 +24,9 @@ class adminService:
         return comptes
 
     @log
-    def trouver_par_id(self, id_compte) -> Compte:
+    def trouver_par_nom(self, nom_compte) -> Compte:
         """Trouver un compte à partir de son id"""
-        return adminDao().trouver_par_id(id_compte)
+        return adminDao().trouver_par_nom(nom_compte)
 
     @log
     def crediter(self, nom, nb_jetons):
