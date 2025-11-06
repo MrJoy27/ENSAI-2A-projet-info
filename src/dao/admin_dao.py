@@ -10,7 +10,7 @@ class adminDao(metaclass=Singleton):
     """Classe contenant les méthodes pour accéder aux comptes de la base de données"""
 
     @log
-    def trouver_par_id(self, id_compte) -> Compte:
+    def trouver_par_nom(self, nom_compte) -> Compte:
         """trouver un compte grace à son id
 
         Parameters
@@ -29,8 +29,8 @@ class adminDao(metaclass=Singleton):
                     cursor.execute(
                         "SELECT *                           "
                         "  FROM compte                      "
-                        " WHERE id = %(id_compte)s;  ",
-                        {"id_compte": id_compte},
+                        " WHERE nom = %(nom_compte)s;  ",
+                        {"nom_compte": nom_compte},
                     )
                     res = cursor.fetchone()
         except Exception as e:

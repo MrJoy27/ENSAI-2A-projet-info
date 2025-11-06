@@ -42,14 +42,9 @@ class MenuTableVue(VueAbstraite):
         ).execute()
 
         match choix:
-            case "Se déconnecter":
-                Session().deconnexion()
-                from view.accueil.accueil_vue import AccueilVue
-
+            case "Quitter la table":
+                
                 return AccueilVue()
 
-            case "Infos de session":
+            case "Joueurs à la table":
                 return MenuJoueurVue(Session().afficher())
-
-            case "Rejoindre une table":
-                pass
