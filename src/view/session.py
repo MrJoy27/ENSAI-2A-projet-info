@@ -15,6 +15,7 @@ class Session(metaclass=Singleton):
         """Création de la session"""
         self.compte = None
         self.table = None
+        self.liste_tables = []
         self.debut_connexion = None
 
     def connexion(self, compte):
@@ -30,6 +31,13 @@ class Session(metaclass=Singleton):
 
     def rejoindre_table(self, table):
         self.table = table
+    
+    def table_vide(self):
+        lt = []
+        for table in self.liste_tables:
+            if not table.liste_comptes == []:
+                lt.append(table)
+        self.liste_tables = lt
 
     def afficher(self) -> str:
         """Afficher les informations de connexion"""

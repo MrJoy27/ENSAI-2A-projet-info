@@ -37,14 +37,27 @@ class MenuTableVue(VueAbstraite):
             choices=[
                 "Quitter la table",
                 "Joueurs à la table",
-                "",
+                "Lancer une partie",
             ],
         ).execute()
 
         match choix:
             case "Quitter la table":
-                
-                return AccueilVue()
+                from view.menu_joueur_vue import MenuJoueurVue
+                for i in range(len(Session().table.liste_comptes)):
+                    if Session().table.liste_comptes[i] == Session().compte:
+                        Session().table.liste_comptes.pop(i)
+                Session().table = None
+                Session().table_vide()
+                return MenuJoueurVue()
 
             case "Joueurs à la table":
-                return MenuJoueurVue(Session().afficher())
+                lc = []
+                for compte in Session().table.liste_comptes:
+                    lc.append([compte.nom, compte.nb_jetons])
+                return MenuTableVue(lc)
+
+            case "Lancer une partie":
+                tab = Session().table
+                if len(tab.liste_comptes) < 2:
+                    return MenuTableVue("Pas assez de joueurs pour lancer une partie")

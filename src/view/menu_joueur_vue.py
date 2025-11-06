@@ -4,7 +4,6 @@ from typing import Optional
 from business_object.compte import Compte
 from business_object.joueur import Joueur
 from business_object.table import Table
-from business_object.table import liste_tables
 
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
@@ -69,16 +68,17 @@ class MenuJoueurVue(VueAbstraite):
                 if check:
                     compte = Compte(nom=nom, mdp=mdp)
                     compteService().supprimer(compte)
-                
-                return AccueilVue("Compte supprimé")
+                    return AccueilVue("Compte supprimé")
+                else:
+                    return MenuJoueurVue
 
             case "Rejoindre une table":
                 compte = Session().compte
-                if [tab for tab in liste_tables if len(table.liste_comptes) < 10] != []:
+                if [tab for tab in Session().liste_tables if len(tab.liste_comptes) < 10] != []:
                     table = inquirer.select(
                         message="Choisir une table à rejoindre",
-                        choices=[tab for tab in liste_tables if len(table.liste_comptes) < 10]
-                        )
+                        choices=[tab for tab in Session().liste_tables if len(tab.liste_comptes) < 10]
+                        ).execute()
                     table.liste_comptes.append(compte)
                     Session().rejoindre_table(table)
                     return MenuTableVue(f"Table {table.id} rejointe")
@@ -87,8 +87,9 @@ class MenuJoueurVue(VueAbstraite):
             
             case "Créer une table":
                 compte = Session().compte
-                table = Table(len(liste_tables)+1)
+                table = Table(len(Session().liste_tables)+1)
                 table.liste_comptes.append(compte)
+                Session().liste_tables.append(table)
                 Session().rejoindre_table(table)
                 return MenuTableVue(f"Table {table.id} créée")
 

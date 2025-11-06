@@ -25,5 +25,3 @@ class Table():
                 riviere.append(piocher(self.deck))
             manche = Manche(liste_joueurs, riviere)
             return manche
-
-liste_tables = []
