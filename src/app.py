@@ -3,6 +3,7 @@ import logging
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
+from business_object.table import Table
 
 from service.joueur_service import compteService
 from service.admin_service import adminService
@@ -12,7 +13,7 @@ app = FastAPI(title="Mon webservice")
 
 
 initialiser_logs("Webservice")
-
+tables = []
 joueur_service = compteService()
 aservice = adminService()
 
@@ -97,11 +98,19 @@ async def creer_joueur(j: JoueurModel):
 
 @app.post("/table/", tags=["Tables"])
 def creer_table():
-    pass
+    tables.append(Table(len(tables)+1))
+    return tables
 
-@app.get("/table/{table_id}", tags=["Table"])
-def table_state(id):
-    pass
+@app.get("/table/{table_id}", tags=["Tables"])
+def etat_table(id: int):
+    table = None
+    for tab in tables:
+        if tab.id == id:
+            table = tab
+    if table is not None:
+        return table.liste_comptes
+    else:
+        return "Cette table n'existe pas"
 
 
 

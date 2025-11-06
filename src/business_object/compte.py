@@ -12,7 +12,7 @@ class Compte():
         return [self.nom, self.nb_jetons, self.nb_victoires, self.nb_parties]
 
     def rejoindre_table(self, table):
-        if len(table.joueurs) < 5:
+        if len(table.joueurs) < 10:
             table.joueurs.append(self)
         else:
             print("Table remplie")
