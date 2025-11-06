@@ -1,5 +1,5 @@
 from business_object.carte.deck import Deck
-from businees_object.manche import Manche
+from business_object.manche import Manche
 from business_object.joueur import Joueur
 
 class Table():
