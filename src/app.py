@@ -155,7 +155,7 @@ def etat_manche(id_table: int):
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.put("/manche/{table_id}", tags=["Manche"])
-def jouer_manche(nom, mdp, choix, id_table: int, nb_jetons=0):
+def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
     compte = adminService().trouver_par_nom(nom)
     if not compte:
         raise HTTPException(status_code=404, detail="Compte non trouvé")
@@ -170,9 +170,9 @@ def jouer_manche(nom, mdp, choix, id_table: int, nb_jetons=0):
             joueur = table.manche.liste_joueurs[table.manche.tour%table.manche.n]
             if choix == "Suivre":
                 joueur.suivre(table.manche)
-            if choix == "Se coucher":
+            elif choix == "Se coucher":
                 joueur.couche(table.manche)
-            if choix == "Relancer":
+            elif choix == "Relancer":
                 joueur.relancer(nb_jetons, table.manche)
             else:
                 raise HTTPException(status_code=404, detail="choix doit être 'Suivre', 'Se coucher' ou 'Relancer'")

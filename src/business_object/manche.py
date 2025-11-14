@@ -62,9 +62,9 @@ class Manche():
 
     def update(self):
         if self.couche.count(False)>1 and self.revele.count(False)>0:
-            if t1 and self.tour%n==((self.dealer+2)%n):
-                t1=False
-            if not t1:
+            if self.t1 and self.tour%self.n==((self.dealer+2)%self.n):
+                self.t1=False
+            if not self.t1:
                 c = 0
                 for joueur in self.liste_joueurs:
                     if joueur.mise == self.mise:
