@@ -13,47 +13,19 @@ class Manche():
         self.riviere = riviere
         self.revele = [False for _ in range(5)]
         self.couche = [False for _ in range(len(liste_joueurs))]
-        self.tour_joue = False
         self.dealer = randint(0, len(self.liste_joueurs)-1)
         self.small_blind = small_blind
         self.big_blind = big_blind
-
-    def voir_riviere(self):
-        rev = []
-        for i in range(5):
-            if self.revele[i]:
-                rev.append(self.riviere[i])
-        return rev
+        self.n=len(self.liste_joueurs)
+        self.tour=self.dealer
+        self.t1=true
+    def blindes(self):
+        j_small_blind = self.liste_joueurs[(self.dealer+1)%n]
+        j_big_blind = self.liste_joueurs[(self.dealer+2)%n]
+        self.liste_joueurs[j_small_blind].small_blind(self.small_blind, self)
+        self.liste_joueurs[j_big_blind].big_blind(self.big_blind, self)
 
     def finir_manche(self):
-        n = len(self.liste_joueurs)
-        t1 = True
-        j_small_blind = self.liste_joueurs[(self.dealer+1)%n]
-        j_big_blind = self.liste_joueurs[(small_blind+1)%n]
-        tour = (j_big_blind+1)%n
-        j_small_blind.small_blind(self.small_blind, self)
-        j_big_blind.big_blind(self.big_blind, self)
-        while self.couche.count(False) > 1 or self.revele.count(False) > 0:
-            while not self.tour_joue:
-                joueur = self.liste_joueurs[tour%n]
-                if t1 and joueur == j_big_blind:
-                    t1 = False
-            if not t1:
-                c = 0
-                for joueur in self.liste_joueurs:
-                    if joueur.mise == self.mise:
-                        c += 1
-                if c == self.couche.count(False):
-                    if self.revele.count(False) == 5:
-                        self.revele[0] = True
-                        self.revele[1] = True
-                        self.revele[2] = True
-                    if self.revele.count(False) == 2:
-                        self.revele[3] = True
-                    else:
-                        self.revele[4] = True
-            self.tour_joue = False
-            tour += 1
         non_couche=[]
         for i in range(couche): 
             if not couche[i]:
@@ -83,3 +55,35 @@ class Manche():
             for joueur in joueurs_gagnants:
                 ad.crediter(joueur, gain)
         
+
+    def update(self):
+        if not(self.couche.count(False)>1 or self.revele.count(False)>0):
+            joueur=self.liste_joueur[tour%n]
+            if t1 and self.tour%n==(self.dealer+2%n):
+                t1=False
+            if not t1:
+                c = 0
+                for joueur in self.liste_joueurs:
+                    if joueur.mise == self.mise:
+                        c += 1
+                if c == self.couche.count(False):
+                    if self.revele.count(False) == 5:
+                        self.revele[0] = True
+                        self.revele[1] = True
+                        self.revele[2] = True
+                    if self.revele.count(False) == 2:
+                        self.revele[3] = True
+                    else:
+                        self.revele[4] = True
+            tour += 1
+        else:
+            self.finir_manche()
+
+    def voir_riviere(self):
+        rev = []
+        for i in range(5):
+            if self.revele[i]:
+                rev.append(self.riviere[i])
+        return rev
+
+    
