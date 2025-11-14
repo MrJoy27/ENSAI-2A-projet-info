@@ -12,16 +12,16 @@ class Compte():
         return [self.nom, self.nb_jetons, self.nb_victoires, self.nb_parties]
 
     def rejoindre_table(self, table):
-        if len(table.joueurs) < 10:
-            table.joueurs.append(self)
+        if len(table.liste_comptes) < 10:
+            table.liste_comptes.append(self)
         else:
             print("Table remplie")
     
     def quitter_table(self, table):
-        if self in table.joueurs:
-            for i in range(len(table.joueurs)):
-                if table.joueurs[i] == self:
-                    table.joueurs.pop(i)
+        if self in table.liste_comptes:
+            for i in range(len(table.liste_comptes)):
+                if table.liste_comptes[i] == self:
+                    table.liste_comptes.pop(i)
                     break
         else:
             print("Joueur pas sur cette table")

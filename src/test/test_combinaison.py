@@ -1,5 +1,6 @@
 import pytest
 from business_object.carte.carte import Carte, Valeur, Couleur
+from business_object.carte.liste_cartes import ListeCartes
 from business_object.combinaison import Combinaison  # vérifie que le chemin est correct
 
 

@@ -137,7 +137,11 @@ def lancer_manche(id_table: int):
     pass
 
 @app.get("/manche/{table_id}", tags=["Manche"])
-def etat_manche():
+def etat_manche(id_table):
+    pass
+
+@app.put("/manche/{table_id}", tags=["Manche"])
+def jouer_manche(nom, mdp, id_table):
     pass
 
 

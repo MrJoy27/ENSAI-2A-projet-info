@@ -4,7 +4,7 @@ from business_object.compte import Compte
 # Table factice pour les tests
 class Table:
     def __init__(self):
-        self.joueurs = []
+        self.liste_comptes = []
 
 def test_initialisation():
     compte = Compte("Alice", "secret", 100, 5, 10, id=42)
@@ -19,22 +19,22 @@ def test_rejoindre_table():
     table = Table()
     compte = Compte("Bob")
     compte.rejoindre_table(table)
-    assert compte in table.joueurs
+    assert compte in table.liste_comptes
 
 def test_rejoindre_table_limite():
     table = Table()
-    for i in range(5):
-        table.joueurs.append(Compte(f"Joueur{i}"))
+    for i in range(10):
+        table.liste_comptes.append(Compte(f"Joueur{i}"))
     compte = Compte("Trop")
     compte.rejoindre_table(table)
-    assert compte not in table.joueurs  # ne doit pas être ajouté
+    assert compte not in table.liste_comptes  # ne doit pas être ajouté
 
 def test_quitter_table():
     table = Table()
     compte = Compte("Charlie")
-    table.joueurs.append(compte)
+    table.liste_comptes.append(compte)
     compte.quitter_table(table)
-    assert compte not in table.joueurs
+    assert compte not in table.liste_comptes
 
 def test_quitter_table_non_present(capsys):
     table = Table()

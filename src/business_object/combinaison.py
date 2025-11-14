@@ -66,7 +66,7 @@ class Combinaison():
             self.tie_breaker=[Carte(ordre_valeur[cpt_carte.index(2)],Couleur.Carreau)]
             cpt_carte.pop(cpt_carte.index(2))
             self.tie_breaker.append([Carte(ordre_valeur[cpt_carte.index(2)],Couleur.Carreau)])
-            self.tie_breaker.sort(reverse=True)
+            # self.tie_breaker.sort(reverse=True)
         elif paire1:
             self.type="Paire"
             self.tie_breaker=[Carte(ordre_valeur[cpt_carte.index(2)],Couleur.Carreau)]
