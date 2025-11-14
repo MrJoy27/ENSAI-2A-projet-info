@@ -18,13 +18,13 @@ class Manche():
         self.big_blind = big_blind
         self.n=len(self.liste_joueurs)
         self.tour=self.dealer
-        self.t1=true
+        self.t1=True
     def blindes(self):
         j_small_blind = self.liste_joueurs[(self.dealer+1)%n]
         j_big_blind = self.liste_joueurs[(self.dealer+2)%n]
         self.liste_joueurs[j_small_blind].small_blind(self.small_blind, self)
         self.liste_joueurs[j_big_blind].big_blind(self.big_blind, self)
-
+        self.tour+=2
     def finir_manche(self):
         non_couche=[]
         for i in range(couche): 
