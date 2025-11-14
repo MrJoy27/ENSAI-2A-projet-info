@@ -113,7 +113,7 @@ def rejoindre_table(nom, mdp, id_table: int):
         if tab.id == id_table:
             table = tab
     if table is not None:
-        if len(table.list_comptes) < 10:
+        if len(table.liste_comptes) < 10:
             table.liste_comptes.append(compte)
             return table.liste_comptes
         else:
@@ -133,16 +133,53 @@ def etat_table(id: int):
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.post("/manche/", tags=["Manche"])
-def lancer_manche(id_table: int):
-    pass
+def lancer_manche(id_table: int, small: int, big: int):
+    table = None
+    for tab in tables:
+        if tab.id == id_table:
+            table = tab
+    if table is not None:
+        return table.commencer_manche(small, big)
+    else:
+        raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.get("/manche/{table_id}", tags=["Manche"])
-def etat_manche(id_table):
-    pass
+def etat_manche(id_table: int):
+    table = None
+    for tab in tables:
+        if tab.id == id_table:
+            table = tab
+    if table is not None:
+        return table.manche
+    else:
+        raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.put("/manche/{table_id}", tags=["Manche"])
-def jouer_manche(nom, mdp, id_table):
-    pass
+def jouer_manche(nom, mdp, choix, id_table: int, nb_jetons=0):
+    compte = adminService().trouver_par_nom(nom)
+    if not compte:
+        raise HTTPException(status_code=404, detail="Compte non trouvé")
+    if not compte.mdp == mdp:
+        raise HTTPException(status_code=401, detail="Mot de passe erroné")
+    table = None
+    for tab in tables:
+        if tab.id == id_table:
+            table = tab
+    if table is not None:
+        if table.manche.liste_joueurs[table.manche.tour%table.manche.n].nom == nom:
+            joueur = table.manche.liste_joueurs[table.manche.tour%table.manche.n]
+            if choix == "Suivre":
+                joueur.suivre(table.manche)
+            if choix == "Se coucher":
+                joueur.couche(table.manche)
+            if choix == "Relancer":
+                joueur.relancer(nb_jetons, table.manche)
+            else:
+                raise HTTPException(status_code=404, detail="choix doit être 'Suivre', 'Se coucher' ou 'Relancer'")
+        else:
+            raise HTTPException(status_code=405, detail="Pas à ton tour")
+    else:
+        raise HTTPException(status_code=404, detail="Table non trouvée")
 
 
 

@@ -17,8 +17,6 @@ class Joueur:
         """Constructeur"""
         if not(isinstance(nom, str)):
             raise TypeError("nom doit etre de type str")
-        if not(isinstance(main, ListeCartes)):
-            raise TypeError("main doit etre de type ListeCartes")
         if not(isinstance(jetons_restants, int)):
             raise TypeError("jetons_restants doit etre de type int")
         if not(isinstance(jetons_restants, int)):
@@ -74,7 +72,7 @@ class Joueur:
         if not manche.liste_joueurs.index(self) == manche.tour%manche.n:
             print("Pas à ton tour")
         else:
-            if self.jetons_restants >= manche.mise-self:
+            if self.jetons_restants >= manche.mise-self.mise:
                 self.jetons_restants -= manche.mise-self.mise
                 manche.pot += manche.mise-self.mise
                 self.mise = manche.mise

@@ -9,7 +9,7 @@ class Table():
         self.id = id
         self.manche = None
     
-    def commencer_manche(self):
+    def commencer_manche(self, small, big):
         if len(self.liste_comptes) < 2:
             print("Pas assez de joueurs")
         else:
@@ -20,11 +20,11 @@ class Table():
                 liste_joueurs.append(joueur)
             for _ in range(2):
                 for joueur in liste_joueurs:
-                    joueur.main.append(piocher(self.deck))
+                    joueur.main.append(self.deck.piocher())
             riviere = []
             for _ in range(5):
-                riviere.append(piocher(self.deck))
-            manche = Manche(liste_joueurs, riviere)
+                riviere.append(self.deck.piocher())
+            manche = Manche(liste_joueurs, riviere, small, big)
             manche.blindes()
             self.manche = manche
             return manche

@@ -12,11 +12,8 @@ class Deck:
         ordre_couleurs = [Couleur.Pique, Couleur.Carreau, Couleur.Coeur, Couleur.Trefle]
         self.cartes = ListeCartes([Carte(v, c) for c in ordre_couleurs for v in ordre_valeurs])
 
-    def piocher(self, n):
-        piochees = []
-        for _ in range(n):
-            piochees.append(self.cartes.retirer_carte(len(self.cartes)-1))
-        return piochees
+    def piocher(self):
+        return self.cartes.retirer_carte(len(self.cartes)-1)
 
     def melanger(self, seed = None):
         self.cartes.melanger()

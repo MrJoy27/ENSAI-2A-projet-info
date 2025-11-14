@@ -21,23 +21,23 @@ class Manche():
         self.t1=True
 
     def blindes(self):
-        j_small_blind = self.liste_joueurs[(self.dealer+1)%n]
-        j_big_blind = self.liste_joueurs[(self.dealer+2)%n]
-        self.liste_joueurs[j_small_blind].small_blind(self.small_blind, self)
-        self.liste_joueurs[j_big_blind].big_blind(self.big_blind, self)
+        j_small_blind = self.liste_joueurs[(self.dealer+1)%self.n]
+        j_big_blind = self.liste_joueurs[(self.dealer+2)%self.n]
+        j_small_blind.small_blind(self.small_blind, self)
+        j_big_blind.big_blind(self.big_blind, self)
         self.tour+=2
 
     def finir_manche(self):
         non_couche=[]
         for i in range(len(self.couche)): 
             if not self.couche[i]:
-                non_couche.append(joueurs[i])
+                non_couche.append(self.liste_joueurs[i])
         meilleures_combinaisons=[]
-        for joueur in couche:
+        for joueur in non_couche:
             cartes=joueur.main+self.riviere
             combinaisons=[]
-            possibilites=combinations(possibilites, cartes)
-            for possiblite in range(possibilites):
+            possibilites=combinations(cartes, 5)
+            for possiblite in possibilites:
                 combinaisons.append(Combinaison(possibilite))
             meilleures_combinaisons.append(max(combinaisons))
         best=meilleures_combinaisons[0]
@@ -61,7 +61,7 @@ class Manche():
         
 
     def update(self):
-        if not(self.couche.count(False)>1 or self.revele.count(False)>0):
+        if self.couche.count(False)>1 and self.revele.count(False)>0:
             if t1 and self.tour%n==((self.dealer+2)%n):
                 t1=False
             if not t1:
