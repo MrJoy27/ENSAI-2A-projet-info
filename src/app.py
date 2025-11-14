@@ -28,7 +28,7 @@ async def redirect_to_docs():
 async def lister_tous_joueurs(mdp):
     """Lister tous les joueurs"""
     if mdp != "crab_love":
-        raise HTTPException(status_code=405, detail="Mot de passe administrateur erroné")
+        raise HTTPException(status_code=401, detail="Mot de passe administrateur erroné")
     logging.info("Lister tous les joueurs")
     liste_joueurs = aservice.lister_tous()
 
@@ -43,7 +43,7 @@ async def lister_tous_joueurs(mdp):
 async def joueur_par_nom(mdp, nom_joueur):
     """Trouver un joueur à partir de son id"""
     if mdp != "crab_love":
-        raise HTTPException(status_code=405, detail="Mot de passe administrateur erroné")
+        raise HTTPException(status_code=401, detail="Mot de passe administrateur erroné")
     logging.info("Trouver un joueur à partir de son id")
     return aservice.trouver_par_nom(nom_joueur)
 
@@ -52,7 +52,7 @@ async def joueur_par_nom(mdp, nom_joueur):
 def crediter_joueur(mdp, nom_joueur, nb_jetons):
     """Modifier un joueur"""
     if mdp != "crab_love":
-        raise HTTPException(status_code=405, detail="Mot de passe administrateur erroné")
+        raise HTTPException(status_code=401, detail="Mot de passe administrateur erroné")
     logging.info("Modifier un joueur")
     joueur = aservice.trouver_par_nom(nom_joueur)
     if not joueur:
@@ -68,7 +68,7 @@ def crediter_joueur(mdp, nom_joueur, nb_jetons):
 def supprimer_joueur(mdp, nom_joueur):
     """Supprimer un joueur"""
     if mdp != "crab_love":
-        raise HTTPException(status_code=405, detail="Mot de passe administrateur erroné")
+        raise HTTPException(status_code=401, detail="Mot de passe administrateur erroné")
     logging.info("Supprimer un joueur")
     joueur = aservice.trouver_par_nom(nom_joueur)
     if not joueur:
@@ -107,14 +107,17 @@ def rejoindre_table(nom, mdp, id_table: int):
     if not compte:
         raise HTTPException(status_code=404, detail="Compte non trouvé")
     if not compte.mdp == mdp:
-        raise HTTPException(status_code=405, detail="Mot de passe erroné")
+        raise HTTPException(status_code=401, detail="Mot de passe erroné")
     table = None
     for tab in tables:
         if tab.id == id_table:
             table = tab
     if table is not None:
-        table.liste_comptes.append(compte)
-        return table.liste_comptes
+        if len(table.list_comptes) < 10:
+            table.liste_comptes.append(compte)
+            return table.liste_comptes
+        else:
+            raise HTTPException(status_code=405, detail="Plus de place à la table")
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
@@ -129,8 +132,12 @@ def etat_table(id: int):
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
-@app.post("/manche/{manche}", tags=["Manche"])
-def creer_manche():
+@app.post("/manche/", tags=["Manche"])
+def lancer_manche(id_table: int):
+    pass
+
+@app.get("/manche/{table_id}", tags=["Manche"])
+def etat_manche():
     pass
 
 

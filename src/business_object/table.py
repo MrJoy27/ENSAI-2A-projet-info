@@ -7,6 +7,7 @@ class Table():
         self.liste_comptes = []
         self.deck = Deck()
         self.id = id
+        self.manche = None
     
     def commencer_manche(self):
         if len(self.liste_comptes) < 2:
@@ -24,4 +25,5 @@ class Table():
             for _ in range(5):
                 riviere.append(piocher(self.deck))
             manche = Manche(liste_joueurs, riviere)
+            self.manche = manche
             return manche
