@@ -101,6 +101,23 @@ def creer_table():
     tables.append(Table(len(tables)+1))
     return tables
 
+@app.put("/table/{table_id}", tags=["Tables"])
+def rejoindre_table(nom, mdp, id_table: int):
+    compte = adminService().trouver_par_nom(nom)
+    if not compte:
+        raise HTTPException(status_code=404, detail="Compte non trouvé")
+    if not compte.mdp == mdp:
+        raise HTTPException(status_code=405, detail="Mot de passe erroné")
+    table = None
+    for tab in tables:
+        if tab.id == id_table:
+            table = tab
+    if table is not None:
+        table.liste_comptes.append(compte)
+        return table.liste_comptes
+    else:
+        raise HTTPException(status_code=404, detail="Table non trouvée")
+
 @app.get("/table/{table_id}", tags=["Tables"])
 def etat_table(id: int):
     table = None
@@ -110,7 +127,12 @@ def etat_table(id: int):
     if table is not None:
         return table.liste_comptes
     else:
-        return "Cette table n'existe pas"
+        raise HTTPException(status_code=404, detail="Table non trouvée")
+
+@app.post("/manche/{manche}", tags=["Manche"])
+def creer_manche():
+    pass
+
 
 
 

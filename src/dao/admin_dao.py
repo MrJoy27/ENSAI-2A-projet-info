@@ -41,6 +41,7 @@ class adminDao(metaclass=Singleton):
         if res:
             compte = Compte(
                 nom=res["nom"],
+                mdp=res["mdp"],
                 nb_jetons=res["nb_jetons"],
                 nb_victoires=res["nb_victoires"],
                 nb_parties=res["nb_parties"]
