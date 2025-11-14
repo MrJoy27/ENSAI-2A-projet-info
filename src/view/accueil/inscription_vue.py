@@ -24,9 +24,7 @@ class InscriptionVue(VueAbstraite):
             message="Entrez votre mot de passe : ",
             validate=PasswordValidator(
                 length=5,
-                cap=True,
-                number=True,
-                message="Au moins 5 caractères, incluant une majuscule et un chiffre",
+                message="Au moins 5 caractères",
             ),
         ).execute()
 
