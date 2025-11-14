@@ -47,6 +47,8 @@ class Manche():
             elif combi==best:
                 joueurs_gagnants.append(couche[i])
         ad=AdminDao()
+        for joueur in self.liste_joueurs:
+                ad.modifier_jetons(joueur.nom,joueur.jetons_restants)
         if len(joueurs_gagnants)==1:
             ad.crediter(joueurs_gagnants[0].nom, pot)
             

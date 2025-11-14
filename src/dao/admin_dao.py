@@ -124,6 +124,41 @@ class adminDao(metaclass=Singleton):
 
         return res == 1
 
+    @log
+    def modifier_jetons(self, nom, nb_jetons) -> bool:
+        """Modification d'un compte dans la base de données
+
+        Parameters
+        ----------
+        compte : Compte
+
+        Returns
+        -------
+        created : bool
+            True si la modification est un succès
+            False sinon
+        """
+
+        res = None
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "UPDATE compte                                      "
+                        "   SET nb_jetons   =  %(nb_jetons)s     "
+                        " WHERE nom = %(nom)s;                                ",
+                        {
+                            "nb_jetons": nb_jetons,
+                            "nom": nom,
+                        },
+                    )
+                    res = cursor.rowcount
+        except Exception as e:
+            logging.info(e)
+
+        return res == 1
+
     def modifier_victoires(self, nom):
         """Modification d'un compte dans la base de données
 
