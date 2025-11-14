@@ -25,5 +25,6 @@ class Table():
             for _ in range(5):
                 riviere.append(piocher(self.deck))
             manche = Manche(liste_joueurs, riviere)
+            manche.blindes()
             self.manche = manche
             return manche

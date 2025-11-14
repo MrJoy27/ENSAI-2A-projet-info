@@ -17,18 +17,20 @@ class Manche():
         self.small_blind = small_blind
         self.big_blind = big_blind
         self.n=len(self.liste_joueurs)
-        self.tour=self.dealer
+        self.tour=self.dealer+1
         self.t1=True
+
     def blindes(self):
         j_small_blind = self.liste_joueurs[(self.dealer+1)%n]
         j_big_blind = self.liste_joueurs[(self.dealer+2)%n]
         self.liste_joueurs[j_small_blind].small_blind(self.small_blind, self)
         self.liste_joueurs[j_big_blind].big_blind(self.big_blind, self)
         self.tour+=2
+
     def finir_manche(self):
         non_couche=[]
-        for i in range(couche): 
-            if not couche[i]:
+        for i in range(len(self.couche)): 
+            if not self.couche[i]:
                 non_couche.append(joueurs[i])
         meilleures_combinaisons=[]
         for joueur in couche:
@@ -60,8 +62,7 @@ class Manche():
 
     def update(self):
         if not(self.couche.count(False)>1 or self.revele.count(False)>0):
-            joueur=self.liste_joueur[tour%n]
-            if t1 and self.tour%n==(self.dealer+2%n):
+            if t1 and self.tour%n==((self.dealer+2)%n):
                 t1=False
             if not t1:
                 c = 0
@@ -77,7 +78,7 @@ class Manche():
                         self.revele[3] = True
                     else:
                         self.revele[4] = True
-            tour += 1
+            self.tour += 1
         else:
             self.finir_manche()
 
