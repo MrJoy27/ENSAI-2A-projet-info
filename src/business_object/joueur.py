@@ -65,8 +65,8 @@ class Joueur:
                 print("relance inférieure à la mise minimale")
             else:
                 manche.mise = nb_jetons
-                manche.pot += nb_jetons
-                self.jetons_restants -= nb_jetons
+                manche.pot += nb_jetons-self.mise
+                self.jetons_restants -= nb_jetons-self.mise
                 self.mise = nb_jetons
                 manche.update()
 
@@ -74,9 +74,9 @@ class Joueur:
         if not manche.liste_joueurs.index(self) == manche.tour%manche.n:
             print("Pas à ton tour")
         else:
-            if self.jetons_restants >= manche.mise:
-                self.jetons_restants -= manche.mise
-                manche.pot += manche.mise
+            if self.jetons_restants >= manche.mise-self:
+                self.jetons_restants -= manche.mise-self.mise
+                manche.pot += manche.mise-self.mise
                 self.mise = manche.mise
                 manche.update()
             else:
