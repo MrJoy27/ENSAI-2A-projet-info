@@ -62,10 +62,10 @@ class Joueur:
             elif nb_jetons < manche.mise:
                 print("relance inférieure à la mise minimale")
             else:
-                manche.mise = nb_jetons
-                manche.pot += nb_jetons-self.mise
-                self.jetons_restants -= nb_jetons-self.mise
-                self.mise = nb_jetons
+                manche.mise = nb_jetons+manche.mise
+                manche.pot += nb_jetons
+                self.jetons_restants -= nb_jetons
+                self.mise = manche.mise
                 manche.update()
 
     def suivre(self, manche):
@@ -85,8 +85,8 @@ class Joueur:
             print("Pas à ton tour")
         else:
             pos = 0
-            for i in range(len(manche.joueurs)):
-                if manche.joueurs[i] == self:
+            for i in range(len(manche.liste_joueurs)):
+                if manche.liste_joueurs[i] == self:
                     pos = i
             manche.couche[i] = True
             manche.update()

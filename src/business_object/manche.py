@@ -1,5 +1,7 @@
 from random import randint
 from itertools import combinations
+from business_object.combinaison import Combinaison
+from dao.admin_dao import adminDao
 
 class Manche():
     def __init__(self, liste_joueurs, riviere, small_blind, big_blind):
@@ -33,31 +35,33 @@ class Manche():
             if not self.couche[i]:
                 non_couche.append(self.liste_joueurs[i])
         meilleures_combinaisons=[]
+        jc = []
         for joueur in non_couche:
             cartes=joueur.main+self.riviere
             combinaisons=[]
             possibilites=combinations(cartes, 5)
-            for possiblite in possibilites:
+            for possibilite in possibilites:
                 combinaisons.append(Combinaison(possibilite))
-            meilleures_combinaisons.append(max(combinaisons))
-        best=meilleures_combinaisons[0]
+            bc = max(combinaisons)
+            meilleures_combinaisons.append(bc)
+            jc.append([bc, joueur])
+        best=max(meilleures_combinaisons)
         joueurs_gagnants=[]
-        for combi in meilleurs_combinaisons:
-            if combi>best:
-                best=combi
-                joueurs_gagnants=couche[i]
-            elif combi==best:
-                joueurs_gagnants.append(couche[i])
-        ad=AdminDao()
+        for bi in jc:
+            if bi[0] == best:
+                joueurs_gagnants.append(bi[1])
+        ad=adminDao()
         for joueur in self.liste_joueurs:
                 ad.modifier_jetons(joueur.nom,joueur.jetons_restants)
-        if len(joueurs_gagnants)==1:
-            ad.crediter(joueurs_gagnants[0].nom, pot)
+        if len(joueurs_gagnants) == 1:
+            ad.crediter(joueurs_gagnants[0].nom, self.pot)
             
-        if len(joueurs_gagnants)>=2:
-            gain=pot/len(joueurs_gagnants)
+        if len(joueurs_gagnants) >= 2:
+            gain = self.pot/len(joueurs_gagnants)
             for joueur in joueurs_gagnants:
                 ad.crediter(joueur, gain)
+        
+        self.liste_joueurs = []
         
 
     def update(self):
@@ -74,8 +78,10 @@ class Manche():
                         self.revele[0] = True
                         self.revele[1] = True
                         self.revele[2] = True
-                    if self.revele.count(False) == 2:
+                        self.mise = 0
+                    elif self.revele.count(False) == 2:
                         self.revele[3] = True
+                        self.mise = 0
                     else:
                         self.revele[4] = True
             self.tour += 1

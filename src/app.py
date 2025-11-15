@@ -99,7 +99,7 @@ async def creer_joueur(j: JoueurModel):
 @app.post("/table/", tags=["Tables"])
 def creer_table():
     tables.append(Table(len(tables)+1))
-    return tables
+    return [[table.id, table.liste_comptes] for table in tables]
 
 @app.put("/table/{table_id}", tags=["Tables"])
 def rejoindre_table(nom, mdp, id_table: int):
