@@ -139,18 +139,47 @@ def lancer_manche(id_table: int, small: int, big: int):
         if tab.id == id_table:
             table = tab
     if table is not None:
-        return table.commencer_manche(small, big)
+        table.commencer_manche(small, big)
+        return f'Début de la manche sur la table {table.id}'
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.get("/manche/{table_id}", tags=["Manche"])
-def etat_manche(id_table: int):
+async def etat_manche(id_table: int, nom=None, mdp=None):
     table = None
     for tab in tables:
         if tab.id == id_table:
             table = tab
+    if nom is not None:
+        compte = adminService().trouver_par_nom(nom)
+        if not compte:
+            raise HTTPException(status_code=404, detail="Compte non trouvé")
+        if not compte.mdp == mdp:
+            raise HTTPException(status_code=401, detail="Mot de passe erroné")
+        if table is not None:
+            manche = table.manche
+            rev_riv = [manche.riviere[i] for i in range(5) if manche.revele[i]]
+            for j in table.manche.liste_joueurs:
+                if j.nom == nom:
+                    return [
+                f"Joueurs : {[j.nom for j in manche.liste_joueurs]}",
+                f"Mise : {manche.mise}",
+                f"Pot : {manche.pot}",
+                f"Tour : {manche.tour}",
+                f"Rivière : {rev_riv}",
+                j
+                ]
+            raise HTTPException(status_code=404, detail="Joueur pas dans la manche")
     if table is not None:
-        return table.manche
+        manche = table.manche
+        rev_riv = [manche.riviere[i] for i in range(5) if manche.revele[i]]
+        return [
+            f"Joueurs : {[j.nom for j in manche.liste_joueurs]}",
+            f"Mise : {manche.mise}",
+            f"Pot : {manche.pot}",
+            f"Tour : {manche.tour}",
+            f"Rivière : {rev_riv}"
+            ]
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
@@ -180,7 +209,6 @@ def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
             raise HTTPException(status_code=405, detail="Pas à ton tour")
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
-
 
 
 

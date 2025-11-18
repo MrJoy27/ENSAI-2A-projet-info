@@ -79,9 +79,11 @@ class Manche():
                         self.revele[1] = True
                         self.revele[2] = True
                         self.mise = 0
+                        self.tour -= 1
                     elif self.revele.count(False) == 2:
                         self.revele[3] = True
                         self.mise = 0
+                        self.tour -= 1
                     else:
                         self.revele[4] = True
             self.tour += 1
