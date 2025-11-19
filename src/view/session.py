@@ -17,10 +17,12 @@ class Session(metaclass=Singleton):
         self.table = None
         self.liste_tables = []
         self.debut_connexion = None
+        self.mdp=None
 
-    def connexion(self, compte):
+    def connexion(self, compte, mdp):
         """Enregistement des données en session"""
         self.compte = compte
+        self.mdp=mdp
         self.debut_connexion = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     def deconnexion(self):

@@ -23,6 +23,12 @@ async def redirect_to_docs():
     """Redirect to the API documentation"""
     return RedirectResponse(url="/docs")
 
+@app.get("/admin/connexion", tags=["Admin"] )
+async def connexion(mdp):
+    if mdp != "crab_love":
+        raise HTTPException(status_code=401, detail="Mot de passe administrateur erroné")
+    else: 
+        return True
 
 @app.get("/admin/", tags=["Admin"])
 async def lister_tous_joueurs(mdp):

@@ -9,16 +9,14 @@ from service.joueur_service import compteService
 from service.admin_service import adminService
 from view.vue_abstraite import VueAbstraite
 
+import requests 
+import os
+
 
 class InscriptionVue(VueAbstraite):
     def choisir_menu(self):
         # Demande à l'utilisateur de saisir pseudo, mot de passe...
         pseudo = inquirer.text(message="Entrez votre pseudo : ").execute()
-
-        if adminService().pseudo_deja_utilise(pseudo):
-            from view.accueil.accueil_vue import AccueilVue
-
-            return AccueilVue(f"Le pseudo {pseudo} est déjà utilisé.")
 
         mdp = inquirer.secret(
             message="Entrez votre mot de passe : ",
@@ -29,7 +27,7 @@ class InscriptionVue(VueAbstraite):
         ).execute()
 
         # Appel du service pour créer le joueur
-        joueur = compteService().creer(pseudo, mdp)
+        joueur = requests.get(url=os.environ["WEBSERVICE_HOST"]+"/joueur", params=mdp).json()
 
         # Si le joueur a été créé
         if joueur:

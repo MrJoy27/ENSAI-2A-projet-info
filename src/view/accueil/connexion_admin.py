@@ -6,28 +6,27 @@ from view.session import Session
 
 from service.admin_service import adminService
 
-
+import requests
+import os
 class ConnexionAdmin(VueAbstraite):
     """Vue de Connexion (saisie de pseudo et mdp)"""
 
     def choisir_menu(self):
         # Demande à l'utilisateur de saisir pseudo et mot de passe
-        pseudo = inquirer.text(message="Entrez votre pseudo : ").execute()
-        mdp = inquirer.secret(message="Entrez votre mot de passe :").execute()
-
+        mdp = inquirer.secret(message="Entrez le mot de passe :").execute()
         # Appel du service pour trouver le joueur
-        admin = adminService().se_connecter(pseudo, mdp)
+        admin = requests.get(url=os.environ["WEBSERVICE_HOST"]+"/admin/connexion", params=mdp).json()
 
         # Si le joueur a été trouvé à partir des ses identifiants de connexion
         if admin:
             message = f"Vous êtes connecté en tant qu'administrateur"
-            Session().connexion(admin)
+            Session().connexion("admin",mdp)
 
             from view.menu_admin_vue import MenuAdminVue
 
             return MenuAdminVue(message)
 
-        message = "Erreur de connexion (pseudo ou mot de passe invalide)"
+        message = "Erreur de connexion (mot de passe invalide)"
         from view.accueil.accueil_vue import AccueilVue
 
         return AccueilVue(message)
