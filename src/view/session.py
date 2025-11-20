@@ -15,7 +15,6 @@ class Session(metaclass=Singleton):
         """Création de la session"""
         self.compte = None
         self.table = None
-        self.liste_tables = []
         self.debut_connexion = None
         self.mdp=None
 

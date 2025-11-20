@@ -83,45 +83,65 @@ def supprimer_joueur(mdp, nom_joueur):
     aservice.supprimer(nom_joueur)
     return f"Joueur {nom_joueur} supprimé"
 
-class JoueurModel(BaseModel):
-    """Définir un modèle Pydantic pour les Joueurs"""
 
-    nom: str
-    mdp: str
 
 @app.post("/joueur/", tags=["Joueurs"])
-async def creer_joueur(j: JoueurModel):
+async def creer_joueur(pseudo, mdp):
     """Créer un joueur"""
     logging.info("Créer un joueur")
-    if adminService().pseudo_deja_utilise(j.nom):
+    if adminService().pseudo_deja_utilise(pseudo):
         raise HTTPException(status_code=404, detail="Pseudo déjà utilisé")
 
-    joueur = joueur_service.creer(j.nom, j.mdp)
+    joueur = joueur_service.creer(pseudo, mdp)
     if not joueur:
         raise HTTPException(status_code=404, detail="Erreur lors de la création du joueur")
 
-    return joueur
+    return True
+
+
+@app.post("/joueur/connexion", tags=["Joueurs"])
+async def connexion_joueur(pseudo, mdp):
+    """Se connecter"""
+    logging.info("Se connecter")
+    connexion = joueur_service.se_connecter(pseudo, mdp)
+    if not connexion:
+        raise HTTPException(status_code=404, detail="Problème de connexion")
+
+    return True
+
+@app.delete("/joueur/{pseudo}", tags=["Joueurs"])
+def supprimer_compte(pseudo, mdp):
+    """Supprimer un joueur"""
+    logging.info("Supprimer un joueur")
+    connexion = joueur_service.se_connecter(pseudo, mdp)
+    if not connexion:
+        raise HTTPException(status_code=404, detail="Joueur non trouvé")
+    aservice.supprimer(pseudo)
+    return True
+
 
 @app.post("/table/", tags=["Tables"])
 def creer_table():
-    tables.append(Table(len(tables)+1))
-    return [[table.id, table.liste_comptes] for table in tables]
+    id=len(tables)+1
+    tables.append(Table(id))
+    return id
 
 @app.put("/table/{table_id}", tags=["Tables"])
-def rejoindre_table(nom, mdp, id_table: int):
+def rejoindre_table(nom, mdp, table_id: int):
     compte = adminService().trouver_par_nom(nom)
+
     if not compte:
         raise HTTPException(status_code=404, detail="Compte non trouvé")
     if not compte.mdp == mdp:
         raise HTTPException(status_code=401, detail="Mot de passe erroné")
     table = None
     for tab in tables:
-        if tab.id == id_table:
+        if tab.id == table_id:
             table = tab
     if table is not None:
         if len(table.liste_comptes) < 10:
             table.liste_comptes.append(compte)
-            return table.liste_comptes
+            return True
         else:
             raise HTTPException(status_code=405, detail="Plus de place à la table")
     else:

@@ -9,9 +9,8 @@ from view.vue_abstraite import VueAbstraite
 from view.session import Session
 from view.table_vue import MenuTableVue
 
-from service.joueur_service import compteService
-from service.admin_service import adminService
-
+import requests
+import os
 
 class MenuJoueurVue(VueAbstraite):
     """Vue du menu du joueur
@@ -62,36 +61,32 @@ class MenuJoueurVue(VueAbstraite):
             case "Supprimer son compte":
                 from view.accueil.accueil_vue import AccueilVue
 
-                nom = Session().compte.nom
+                pseudo = Session().compte
                 mdp = inquirer.secret(message="Mot de passe : ").execute()
                 check = inquirer.confirm("Êtes-vou sûr ?").execute()
                 if check:
-                    compte = Compte(nom=nom, mdp=mdp)
-                    compteService().supprimer(compte)
-                    return AccueilVue("Compte supprimé")
+                    supression=requests.delete(os.environ["WEBSERVICE_HOST"]+"/joueur"+pseudo, params={"mdp" :mdp})
+                    if supression==True:
+                        return AccueilVue("Compte supprimé")
+                    else:
+                        return MenuJoueurVue("Une erreur est survenue, probablement un mauvais mot de passe")
                 else:
                     return MenuJoueurVue
 
             case "Rejoindre une table":
-                compte = Session().compte
-                if [tab for tab in Session().liste_tables if len(tab.liste_comptes) < 10] != []:
-                    table = inquirer.select(
-                        message="Choisir une table à rejoindre",
-                        choices=[tab for tab in Session().liste_tables if len(tab.liste_comptes) < 10]
-                        ).execute()
-                    table.liste_comptes.append(compte)
-                    Session().rejoindre_table(table)
-                    return MenuTableVue(f"Table {table.id} rejointe")
+                pseudo=Session().compte
+                mdp=Session().mdp
+                id_table=inquirer.text(message="Quel table voulez-vous rejoindre ?").execute()
+                table_rejointe=requests.put(url=os.environ["WEBSERVICE_HOST"]+"/table/"+id_table,params={"nom": pseudo,"mdp":mdp}).json()
+                if table_rejointe==True: 
+                    Session().table=id_table
+                    return MenuTableVue(f"Table {id_table} rejointe")
                 else:
-                    return MenuJoueurVue("Aucune table disponible")
+                    return MenuJoueurVue("Une erreur est survenue. Table non rejointe")
             
             case "Créer une table":
-                compte = Session().compte
-                table = Table(len(Session().liste_tables)+1)
-                table.liste_comptes.append(compte)
-                Session().liste_tables.append(table)
-                Session().rejoindre_table(table)
-                return MenuTableVue(f"Table {table.id} créée")
+                id=requests.post(url=os.environ["WEBSERVICE_HOST"]+"/table/").json()
+                return MenuJoueurVue(f"Table {id} créee")
 
 
 

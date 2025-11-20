@@ -5,8 +5,6 @@ from InquirerPy import inquirer
 from InquirerPy.validator import EmptyInputValidator, PasswordValidator
 from prompt_toolkit.validation import ValidationError, Validator
 
-from service.joueur_service import compteService
-from service.admin_service import adminService
 from view.vue_abstraite import VueAbstraite
 
 import requests 
@@ -27,15 +25,14 @@ class InscriptionVue(VueAbstraite):
         ).execute()
 
         # Appel du service pour créer le joueur
-        joueur = requests.get(url=os.environ["WEBSERVICE_HOST"]+"/joueur", params=mdp).json()
-
+        joueur = requests.post(url=os.environ["WEBSERVICE_HOST"]+"/joueur/", params={"pseudo":pseudo,"mdp":mdp}).json()
         # Si le joueur a été créé
-        if joueur:
+        if joueur==True:
             message = (
-                f"Votre compte {joueur.nom} a été créé. Vous pouvez maintenant vous connecter."
+                f"Votre compte {pseudo} a été créé. Vous pouvez maintenant vous connecter."
             )
         else:
-            message = "Erreur de connexion (pseudo ou mot de passe invalide)"
+            message = "Erreur de connexion (pseudo probablement déjà utilisé)"
 
         from view.accueil.accueil_vue import AccueilVue
 
