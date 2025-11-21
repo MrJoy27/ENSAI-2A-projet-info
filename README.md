@@ -1,246 +1,318 @@
-# ENSAI-2A-projet-info-template
+## Poker-Server – ENSAI 2A Project
 
-Template for the ENSAI 2nd year IT project.
+This project implements a Texas Hold’em Poker Server capable of hosting tables, managing players, 
+enforcing poker rules, and communicating with users via HTTP.
 
-This very simple application includes a few elements that may help with the info 2A project:
 
-- Layer programming (DAO, service, view, business_object)
-- Connection to a database
-- Terminal interface (view layer) with [inquirerPy](https://inquirerpy.readthedocs.io/en/latest/)
-- Calling a Webservice
-- Creating a webservice
+The application includes:
+
+- Layered architecture (DAO, service, view, business_object)
+- Connection to a PostgreSQL database
+- Terminal interface 
+- A REST webservice for clients to interact with the poker server
+- Terminal-based interactive interface 
+- Tools for logs, database initialization, and unit tests
 
 
 ## :arrow_forward: Software and tools
 
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Python 3.13](https://www.python.org/)
-- [Git](https://git-scm.com/)
-- A [PostgreSQL](https://www.postgresql.org/) database
+- Visual Studio Code
+- Python 3.13
+- Git
+- PostgreSQL database
+#### An API testing tool such as Insomnia or Postman ?
 
 
-## :arrow_forward: Clone the repository
+## arrow_forward: Clone the repository
 
-- [ ] Open VSCode
-- [ ] Open **Git Bash**
-- [ ] Clone the repo
-  - `git clone https://github.com/ludo2ne/ENSAI-2A-projet-info-template.git`
+STEPS : 
 
+ Open VSCode
+ Open a Git Bash terminal 
+ Clone your repository using the command : 
+git clone <your-repository-url>
 
-### Open Folder
+THEN :
 
-- [ ] Open **Visual Studio Code**
-- [ ] File > Open Folder
-- [ ] Select folder *ENSAI-2A-projet-info-template*
-  - *ENSAI-2A-projet-info-template* should be the root of your Explorer
-  - :warning: if not the application will not launch. Retry open folder
+Open Folder
+ Open Visual Studio Code
+ File > Open Folder
+ Select your project folder > ok 
 
+ PS:
+- The project folder must be the root in your Explorer redo the steps if it is not ! 
 
-## Repository Files Overview
+## :warning !! : If not, the application will not launch. Retry Open Folder.
 
+---
 
-| Item                       | Description                                                              |
-| -------------------------- | ------------------------------------------------------------------------ |
-| `README.md`                | Provides useful information to present, install, and use the application |
-| `LICENSE`                  | Specifies the usage rights and licensing terms for the repository        |
+## Repository Files Overview :
 
-### Configuration files
-
-This repository contains a large number of configuration files for setting the parameters of the various tools used.
-
-Normally, for the purposes of your project, you won't need to modify these files, except for `.env` and `requirements.txt`.
-
-
-| Item                       | Description                                                              |
-| -------------------------- | ------------------------------------------------------------------------ |
-| `.github/workflows/ci.yml` | Automated workflow that runs predefined tasks (like testing, linting, or deploying) |
-| `.vscode/settings.json`    | Contains VS Code settings specific to this project                       |
-| `.coveragerc`              | Setup for test coverage                                                  |
-| `.gitignore`               | Lists the files and folders that should not be tracked by Git            |
-| `logging_config.yml`       | Setup for logging                                                        |
-| `requirements.txt`         | Lists the required Python packages for the project                       |
-
-You will also need a `.env` file. See below.
-
-
-### Folders
-
-| Item                       | Description                                                              |
-| -------------------------- | ------------------------------------------------------------------------ |
-| `data`                     | SQL script containing data sets                                          |
-| `doc`                      | UML diagrams, project status...                                          |
-| `logs`                     | Containing logs files (once you have launched the application)           |
-| `src`                      | Folder containing Python files organized using a layered architecture    |
+| Item        | Description                                                         |
+| ----------- | ------------------------------------------------------------------- |
+| `README.md` | Provides all information needed to install and use the Poker Server |
+| `LICENSE`   | Specifies the usage rights and licensing terms for the repository   |
 
 
 
-### Settings files
 
-This repository contains a large number of configuration files for setting the parameters of the various tools used.
+- Configuration files :
 
-Normally, for the purposes of your project, you won't need to modify these files, except for `.env` and `requirements.txt`.
+This repository contains several configuration files for tooling.
+Normally, you will not need to modify any file except:
+
+-  .env
+-  requirements.txt
+
+
+* Item	Description :
+
+| Item                       | Description                                                    |
+| -------------------------- | -------------------------------------------------------------- |
+| `.github/workflows/ci.yml` | Continuous Integration pipeline (tests, linting, installation) |
+| `.vscode/settings.json`    | VSCode workspace settings                                      |
+| `.coveragerc`              | Coverage configuration                                         |
+| `.gitignore`               | Ignored files and folders                                      |
+| `logging_config.yml`       | Logging configuration                                          |
+| `requirements.txt`         | Python package list                                            |
+
+
+
+
+You will also need a .env file (see below).
+
+
+* Folders :
+
+| Item   | Description                                                       |
+| ------ | ----------------------------------------------------------------- |
+| `data` | SQL scripts for initializing poker tables, players, and test data |
+| `doc`  | UML diagrams and project documentation                            |
+| `logs` | Generated log files (created after first application launch)      |
+| `src`  | Main application source code following a layered architecture     |
+
+
+* Settings files :
+
+(Same as above)
+
+You generally do not need to modify configuration files except for .env and possibly 
+requirements.txt (only if you don't have the versions mentioned above of python and other softwares)
 
 
 ## :arrow_forward: Install required packages
 
-- [ ] In Git Bash, run the following commands to:
-  - install all packages from file `requirements.txt`
-  - list all packages
+ In Git Bash, run the following to install required Python packages and list them:
 
-```bash
 pip install -r requirements.txt
 pip list
-```
 
 
 ## :arrow_forward: Environment variables
 
-You are now going to define environment variables to declare the database and webservice to which you are going to connect your python application.
+You must define environment variables describing:
 
-At the root of the project :
+- the database connection
+- the host of the webservice
 
-- [ ] Create a file called `.env`
-- [ ] Paste in and complete the elements below
+At the root of the project:
+ Create a file named .env (don't forget the . at the beginning)
 
-```default
+  THEN : 
+
+ Paste and complete the values below:
+
+
 WEBSERVICE_HOST=https://pokeapi.co/api/v2
 
-POSTGRES_HOST=sgbd-eleves.domensai.ecole
-POSTGRES_PORT=5432
-POSTGRES_DATABASE=idxxxx
-POSTGRES_USER=idxxxx
-POSTGRES_PASSWORD=idxxxx
+POSTGRES_HOST= postgresql-563160.user-rouabenyoussef
+POSTGRES_PORT= 5432
+POSTGRES_DATABASE= defaultdb
+POSTGRES_USER= user-rouabenyoussef
+POSTGRES_PASSWORD= 4qh42r51fbhaufn4nmgr
+
+
 POSTGRES_SCHEMA=projet
-```
+
+
+This will allow the Poker Server to authenticate players, store their balances, manage tables, and run games.
+
 
 
 ## :arrow_forward: Unit tests
+TESTING PHASE :
 
-- [ ] In Git Bash: `pytest -v` 
-  - or `python -m pytest -v` if *pytest* has not been added to *PATH*
-
-
-### TU DAO
-
-To ensure tests are repeatable, safe, and **do not interfere with the real database**, we use a dedicated schema for unit testing.
-
-The DAO unit tests use data from the `data/pop_db_test.sql` file.
-
-This data is loaded into a separate schema (projet_test_dao) so as not to pollute the other data.
+ In Git Bash, write : 
 
 
-### Test coverage
+pytest -v
 
-It is also possible to generate test coverage using [Coverage](https://coverage.readthedocs.io/en/7.4.0/index.html)
 
-:bulb: The `.coveragerc` file can be used to modify the settings
 
-- [ ] `coverage run -m pytest`
-- [ ] `coverage report -m`
-- [ ] `coverage html`
-  - Download and open coverage_report/index.html
+or:
 
+
+python -m pytest -v
+
+- TU DAO :
+
+To ensure safe and repeatable tests that do not modify production data, DAO tests load their data 
+into a dedicated schema.
+
+* The DAO test data comes from:
+
+data/pop_db_test.sql
+
+It is loaded into a separate schema:
+
+test/test_dao
+
+* Test coverage (optional):
+
+Test coverage can be generated with Coverage:
+
+ coverage run -m pytest
+ coverage report -m
+ coverage html
+
+Open the file coverage_report/index.html in your browser.
 
 
 ## :arrow_forward: Launch the CLI application
 
-This application provides a very basic graphical interface for navigating between different menus.
+The CLI allows players or admins to interact with the poker server through a text-based menu system.
 
-- [ ] In Git Bash: `python src/main.py`
-- [ ] On first launch, choose **Reset database**
-  - this calls the `src/utils/reset_database.py` program
-  - which will itself execute the SQL scripts in the `data` folder
+SO: 
 
+ In Git Bash :
 
-
-## :arrow_forward: Launch the webservice
-
-This application can also be used to create a webservice.
-
-- [ ] `python src/app.py`
-
-Documentation :
-
-- /docs
-- /redoc
-
-### Endpoints
-
-Examples of endpoints (to be tested, for example, with *Insomnia* or a browser):
+python src/main.py
 
 
-- `GET http://localhost/joueur`
-- `GET http://localhost/joueur/3`
-- ```
-  POST http://localhost/joueur/
-  JSON body :
-    {
-      "pseudo": "patapouf",
-      "mdp": "9999",
-      "age": "95",
-      "mail": "patapouf@mail.fr",
-      "fan_pokemon": true
-    }
-  ```
-- ```
-  PUT http://localhost/joueur/3
-  JSON body :
-    {
-       "pseudo": "maurice_new",
-       "mdp": null,
-       "age": 20,
-       "mail": "maurice@ensai.fr",
-       "fan_pokemon": true
-    }
-  ```
-- `DELETE http://localhost/joueur/5`
+On first launch, choose Reset database:
 
+This runs src/utils/reset_database.py
+
+It executes all SQL initialization scripts placed in data/
+Using the terminal, 
+
+* players may:
+
+Log in
+Join a table
+Take actions during their turn (fold/call/raise/all-in)
+View their wallet balance
+
+* Admins may:
+
+Credit player balances
+Manage tables
+:arrow_forward: Launch the webservice
+The webservice exposes a REST API allowing:
+Player account creation and authentication
+Joining tables
+Taking poker actions
+Getting current table/game state
+Admin operations
+
+
+
+- To launch the webservice:
+
+python src/app.py
+
+* Documentation:
+
+/docs (Swagger UI)
+/redoc (alternative documentation)
+
+* Endpoints
+
+Here are examples of endpoints (test them with Insomnia, Postman, or a browser):
+Players
+GET http://localhost:8000/joueur
+GET http://localhost:8000/joueur/3
+
+
+- Bash - 
+
+POST http://localhost:8000/joueur/
+JSON body :
+{
+  "nom": "a",
+  "mdp": "a"
+}
+
+-----
+
+PUT http://localhost:8000/joueur/3
+JSON body :
+{
+   "pseudo": "tartiflette",
+   "mdp": 1234
+}
+
+
+-------
+
+DELETE http://localhost:8000/joueur/5
+
+
+
+- Tables & Poker Gameplay :
+
+(this project may expose routes such as:)
+
+POST http://localhost:8000/table/1/join
+POST http://localhost:8000/table/1/action
+GET http://localhost:8000/table/1/state
+
+These allow joining seats, playing turns, and querying game state.
 
 
 ## :arrow_forward: Logs
 
-It is initialised in the `src/utils/log_init.py` module:
+Logs are initialized in the file:
 
-- This is called when the application or webservice is started.
-- It uses the `logging_config.yml` file for configuration.
-  - to change the log level :arrow_right: *level* tag
+src/utils/log_init.py
 
-A decorator has been created in `src/utils/log_decorator.py`.
+It is executed when launching either the CLI or the webservice.
 
-When applied to a method, it will display in the logs :
+It uses logging_config.yml for configuration (log level, format, etc.).
+we also have :
 
-- input parameters
-- the output
+- A decorator in   src/utils/log_decorator.py
+- automatically logs
+- Function input parameters
+- Return values
+- Start and end timestamps
+Logs are stored in the logs folder.
 
-The logs can be viewed in the `logs` folder.
 
-Example of logs :
+Example of logs: 
 
-```
-07/08/2024 09:07:07 - INFO     - ConnexionVue
-07/08/2024 09:07:08 - INFO     -     JoueurService.se_connecter('a', '*****') - DEBUT
-07/08/2024 09:07:08 - INFO     -         JoueurDao.se_connecter('a', '*****') - DEBUT
-07/08/2024 09:07:08 - INFO     -         JoueurDao.se_connecter('a', '*****') - FIN
-07/08/2024 09:07:08 - INFO     -            └─> Sortie : Joueur(a, 20 ans)
-07/08/2024 09:07:08 - INFO     -     JoueurService.se_connecter('a', '*****') - FIN
-07/08/2024 09:07:08 - INFO     -        └─> Sortie : Joueur(a, 20 ans)
-07/08/2024 09:07:08 - INFO     - MenuJoueurVue
-```
+06/11/2025 13:22:16 - INFO     - --------------------------------------------------
+06/11/2025 13:22:16 - INFO     - Lancement Application                           
+06/11/2025 13:22:16 - INFO     - --------------------------------------------------
+06/11/2025 13:22:16 - INFO     - AccueilVue
+06/11/2025 13:22:24 - INFO     - ConnexionVue
+06/11/2025 13:22:28 - INFO     -     compteService.se_connecter('a', '*****') - DEBUT
+06/11/2025 13:22:28 - INFO     -         compteDao.se_connecter('a', '*****') - DEBUT
 
 
 
 ## :arrow_forward: Continuous integration (CI)
 
-The repository contains a `.github/workflow/main.yml' file.
+The repository includes a .github/workflows/ci.yml file.
 
-When you *push* on GitHub, it triggers a pipeline that will perform the following steps:
 
-- Creating a container from an Ubuntu (Linux) image
-  - In other words, it creates a virtual machine with just a Linux kernel.
-- Install Python
-- Install the required packages
-- Run the unit tests (only the service tests, as it's more complicated to run the dao tests)
-- Analyse the code with *pylint*
-  - If the score is less than 7.5, the step will fail
+On every GitHub push, a CI pipeline starts:
 
-You can check how this pipeline is progressing on your repository's GitHub page, *Actions* tab.
+- Creates an Ubuntu environment
+- Installs Python
+- Installs all dependencies
+- Runs unit tests (mainly service-layer tests)
+- Runs pylint
+
+If score < 7.5, the pipeline fails
+You can follow CI progress on GitHub under the *Actions* tab.
