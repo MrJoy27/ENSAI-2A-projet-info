@@ -8,9 +8,8 @@ The application includes:
 
 - Layered architecture (DAO, service, view, business_object)
 - Connection to a PostgreSQL database
-- Terminal interface 
+- Terminal user interface 
 - A REST webservice for clients to interact with the poker server
-- Terminal-based interactive interface 
 - Tools for logs, database initialization, and unit tests
 
 
@@ -20,17 +19,17 @@ The application includes:
 - Python 3.13
 - Git
 - PostgreSQL database
-#### An API testing tool such as Insomnia or Postman ?
 
 
-## arrow_forward: Clone the repository
+
+## :arrow_forward: Clone the repository
 
 STEPS : 
 
  Open VSCode
  Open a Git Bash terminal 
  Clone your repository using the command : 
-git clone <your-repository-url>
+git clone https://github.com/MrJoy27/ENSAI-2A-projet-info.git
 
 THEN :
 
@@ -42,7 +41,7 @@ Open Folder
  PS:
 - The project folder must be the root in your Explorer redo the steps if it is not ! 
 
-## :warning !! : If not, the application will not launch. Retry Open Folder.
+## :warning: If not, the application will not launch. Retry Open Folder.
 
 ---
 
@@ -62,7 +61,6 @@ This repository contains several configuration files for tooling.
 Normally, you will not need to modify any file except:
 
 -  .env
--  requirements.txt
 
 
 * Item	Description :
@@ -96,17 +94,17 @@ You will also need a .env file (see below).
 
 (Same as above)
 
-You generally do not need to modify configuration files except for .env and possibly 
-requirements.txt (only if you don't have the versions mentioned above of python and other softwares)
+You generally do not need to modify configuration files except for .env 
 
 
 ## :arrow_forward: Install required packages
 
  In Git Bash, run the following to install required Python packages and list them:
 
+```bash 
 pip install -r requirements.txt
 pip list
-
+```
 
 ## :arrow_forward: Environment variables
 
@@ -122,17 +120,18 @@ At the root of the project:
 
  Paste and complete the values below:
 
-
+```bash
 WEBSERVICE_HOST=https://pokeapi.co/api/v2
 
-POSTGRES_HOST= postgresql-563160.user-rouabenyoussef
-POSTGRES_PORT= 5432
-POSTGRES_DATABASE= defaultdb
-POSTGRES_USER= user-rouabenyoussef
-POSTGRES_PASSWORD= 4qh42r51fbhaufn4nmgr
-
-
+POSTGRES_HOST=sgbd-eleves.domensai.ecole
+POSTGRES_PORT=5432
+POSTGRES_DATABASE=idxxxx
+POSTGRES_USER=idxxxx
+POSTGRES_PASSWORD=idxxxx
 POSTGRES_SCHEMA=projet
+```
+
+
 
 
 This will allow the Poker Server to authenticate players, store their balances, manage tables, and run games.
@@ -144,16 +143,16 @@ TESTING PHASE :
 
  In Git Bash, write : 
 
-
+```bash
 pytest -v
-
+```
 
 
 or:
-
+```bash
 
 python -m pytest -v
-
+```
 - TU DAO :
 
 To ensure safe and repeatable tests that do not modify production data, DAO tests load their data 
@@ -170,10 +169,11 @@ test/test_dao
 * Test coverage (optional):
 
 Test coverage can be generated with Coverage:
-
+```bash
  coverage run -m pytest
  coverage report -m
  coverage html
+```
 
 Open the file coverage_report/index.html in your browser.
 
@@ -185,9 +185,9 @@ The CLI allows players or admins to interact with the poker server through a tex
 SO: 
 
  In Git Bash :
-
+```bash
 python src/main.py
-
+```
 
 On first launch, choose Reset database:
 
@@ -206,21 +206,25 @@ View their wallet balance
 * Admins may:
 
 Credit player balances
-Manage tables
-:arrow_forward: Launch the webservice
+Manage table
+
+
+## :arrow_forward: Launch the webservice
+
 The webservice exposes a REST API allowing:
-Player account creation and authentication
-Joining tables
-Taking poker actions
-Getting current table/game state
-Admin operations
+
+- Player account creation and authentication
+- Joining tables
+- Taking poker actions
+- Getting current table/game state
+- Admin operations
 
 
 
 - To launch the webservice:
-
+```bash
 python src/app.py
-
+```
 * Documentation:
 
 /docs (Swagger UI)
@@ -234,7 +238,7 @@ GET http://localhost:8000/joueur
 GET http://localhost:8000/joueur/3
 
 
-- Bash - 
+```bash
 
 POST http://localhost:8000/joueur/
 JSON body :
@@ -242,22 +246,22 @@ JSON body :
   "nom": "a",
   "mdp": "a"
 }
-
+```
 -----
-
+```bash 
 PUT http://localhost:8000/joueur/3
 JSON body :
 {
    "pseudo": "tartiflette",
    "mdp": 1234
 }
-
+```
 
 -------
-
+```bash
 DELETE http://localhost:8000/joueur/5
 
-
+```
 
 - Tables & Poker Gameplay :
 
@@ -273,8 +277,9 @@ These allow joining seats, playing turns, and querying game state.
 ## :arrow_forward: Logs
 
 Logs are initialized in the file:
-
+```bash
 src/utils/log_init.py
+```
 
 It is executed when launching either the CLI or the webservice.
 
@@ -286,11 +291,13 @@ we also have :
 - Function input parameters
 - Return values
 - Start and end timestamps
+
+
 Logs are stored in the logs folder.
 
 
 Example of logs: 
-
+```bash
 06/11/2025 13:22:16 - INFO     - --------------------------------------------------
 06/11/2025 13:22:16 - INFO     - Lancement Application                           
 06/11/2025 13:22:16 - INFO     - --------------------------------------------------
@@ -298,7 +305,7 @@ Example of logs:
 06/11/2025 13:22:24 - INFO     - ConnexionVue
 06/11/2025 13:22:28 - INFO     -     compteService.se_connecter('a', '*****') - DEBUT
 06/11/2025 13:22:28 - INFO     -         compteDao.se_connecter('a', '*****') - DEBUT
-
+```
 
 
 ## :arrow_forward: Continuous integration (CI)
@@ -315,4 +322,4 @@ On every GitHub push, a CI pipeline starts:
 - Runs pylint
 
 If score < 7.5, the pipeline fails
-You can follow CI progress on GitHub under the *Actions* tab.
+You can follow CI progress on GitHub under the *Actions* tab
