@@ -15,11 +15,10 @@ The application includes:
 
 ## :arrow_forward: Software and tools
 
-- Visual Studio Code
-- Python 3.13
-- Git
-- PostgreSQL database
-
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Python 3.13](https://www.python.org/)
+- [Git](https://git-scm.com/)
+- A [PostgreSQL](https://www.postgresql.org/) database
 
 
 ## :arrow_forward: Clone the repository
