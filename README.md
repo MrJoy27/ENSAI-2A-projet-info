@@ -155,7 +155,7 @@ pytest -v
 
 
 or:
-```bash
+```bash  ,
 
 python -m pytest -v
 ```
