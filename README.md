@@ -237,7 +237,7 @@ python src/app.py
 
 To launch the app go to My Services in the Onyxia datalab and press 
 
-*Open* > use the link (in the description paragraph )to connect to the 9876 
+*Open* > use the link (second link in the description paragraph )to connect to the 9876 
 port ( !! DO NOT COPY THE PASSWORD AND CONNECT LIKE WE USUALLY DO !! )
 
 
