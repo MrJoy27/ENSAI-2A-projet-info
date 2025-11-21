@@ -180,7 +180,7 @@ class adminDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "UPDATE compte                                      "
-                        "   SET nb_victoires   = nb_victoires + 1           "
+                        "   SET nb_victoires   = nb_victoires + 1 ,          "
                         "       nb_parties     = nb_parties + 1             "
                         " WHERE nom = %(nom)s;                              ",
                         {

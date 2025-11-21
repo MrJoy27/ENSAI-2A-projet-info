@@ -73,7 +73,7 @@ class compteDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     cursor.execute(
                         "UPDATE compte                                      "
-                        "       mdp = %(mdp)s,                              "
+                        "   SET    mdp = %(mdp)s                           "
                         " WHERE id = %(id)s;                                ",
                         {
                             "mdp": compte.mdp,
@@ -103,7 +103,6 @@ class compteDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    # Supprimer le compte d'un compte
                     cursor.execute(
                         "DELETE FROM compte                                "
                         " WHERE mdp=%(mdp)s AND nom=%(nom)s                ",
