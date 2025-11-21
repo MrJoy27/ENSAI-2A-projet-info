@@ -5,6 +5,7 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from business_object.table import Table
 
+from business_object.compte import Compte
 from service.joueur_service import compteService
 from service.admin_service import adminService
 from utils.log_init import initialiser_logs
@@ -147,7 +148,7 @@ def rejoindre_table(nom, mdp, table_id: int):
             table = tab
     if table is not None:
         if len(table.liste_comptes) < 10:
-            table.liste_comptes.append(compte)
+            table.liste_comptes.append(Compte(nom=compte.nom, nb_jetons=compte.nb_jetons, nb_victoires=compte.nb_victoires, nb_parties=compte.nb_parties))
             return True
         else:
             raise HTTPException(status_code=405, detail="Plus de place à la table")
@@ -165,7 +166,7 @@ def etat_table(id: int):
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
-@app.put("/table/{table_id}", tags=["Tables"])
+@app.delete("/table/{table_id}", tags=["Tables"])
 def quitter_table(nom, mdp, table_id: int):
     compte = adminService().trouver_par_nom(nom)
     if not compte:
@@ -178,10 +179,10 @@ def quitter_table(nom, mdp, table_id: int):
             table = tab
     if table is not None:
         for i in range(len(table.liste_comptes)):
-            if table.liste_comptes[i] == compte:
+            if table.liste_comptes[i].nom == compte.nom:
                 table.liste_comptes.pop(i)
                 return f"{compte.nom} a quitté la table"
-            return "Joueur pas à la table"
+        return "Joueur pas à la table"
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
