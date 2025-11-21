@@ -165,6 +165,26 @@ def etat_table(id: int):
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
+@app.put("/table/{table_id}", tags=["Tables"])
+def quitter_table(nom, mdp, table_id: int):
+    compte = adminService().trouver_par_nom(nom)
+    if not compte:
+        raise HTTPException(status_code=404, detail="Compte non trouvé")
+    if not compte.mdp == mdp:
+        raise HTTPException(status_code=401, detail="Mot de passe erroné")
+    table = None
+    for tab in tables:
+        if tab.id == table_id:
+            table = tab
+    if table is not None:
+        for i in range(len(table.liste_comptes)):
+            if table.liste_comptes[i] == compte:
+                table.liste_comptes.pop(i)
+                return f"{compte.nom} a quitté la table"
+            return "Joueur pas à la table"
+    else:
+        raise HTTPException(status_code=404, detail="Table non trouvée")
+
 @app.post("/manche/", tags=["Manche"])
 def lancer_manche(id_table: int, small: int, big: int):
     table = None
