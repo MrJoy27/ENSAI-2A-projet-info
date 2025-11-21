@@ -26,7 +26,7 @@ The application includes:
 
 STEPS : 
 
- Open VSCode
+ Open VSCode in Onyxia (using the port 9876)
  Open a Git Bash terminal 
  Clone your repository using the command : 
 git clone https://github.com/MrJoy27/ENSAI-2A-projet-info.git
@@ -114,6 +114,9 @@ You must define environment variables describing:
 At the root of the project:
  Create a file named .env (don't forget the . at the beginning)
 
+ Go to https://datalab.sspcloud.fr/ (Onyxia) and create a new service : Postgresql and copy the identifications 
+
+
   THEN : 
 
  Paste and complete the values below:
@@ -128,7 +131,13 @@ POSTGRES_USER=idxxxx
 POSTGRES_PASSWORD=idxxxx
 POSTGRES_SCHEMA=projet
 ```
+* Ps keep in mind : 
 
+- Hostname : POSTGRES_HOST
+- Port : POSTGRES_PORT
+- Database : POSTGRES_DATABASE
+- Username : POSTGRES_USER
+- Password : POSTGRES_PASSWORD
 
 
 
@@ -227,6 +236,10 @@ The webservice exposes a REST API allowing:
 python src/app.py
 ```
 
+To launch the app go to My Services in the Onyxia datalab and press 
+
+*Open* > use the link (in the description paragraph )to connect to the 9876 
+port ( !! DO NOT COPY THE PASSWORD AND CONNECT LIKE WE USUALLY DO !! )
 
 
 ## :arrow_forward: Logs
@@ -252,6 +265,7 @@ Logs are stored in the logs folder.
 
 
 Example of logs: 
+
 ```bash
 06/11/2025 13:22:16 - INFO     - --------------------------------------------------
 06/11/2025 13:22:16 - INFO     - Lancement Application                           
