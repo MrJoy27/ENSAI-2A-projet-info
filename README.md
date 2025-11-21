@@ -202,7 +202,7 @@ This runs src/utils/reset_database.py
 It executes all SQL initialization scripts placed in data/
 Using the terminal, 
 
-* players may:
+players may:
 
 - Log in / sign in 
 - Join a table
@@ -210,7 +210,7 @@ Using the terminal,
 - View their wallet balance
 - Check the statistics (wins / games played)
 
-* Admins may:
+Admins may:
 
 - Credit player balances
 - ban an account 
