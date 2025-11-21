@@ -3,8 +3,8 @@ import logging
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
-from business_object.table import Table
 
+from business_object.table import Table
 from business_object.compte import Compte
 from service.joueur_service import compteService
 from service.admin_service import adminService
@@ -249,6 +249,8 @@ def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
         if tab.id == id_table:
             table = tab
     if table is not None:
+        if table.manche.win != "":
+            return table.manche.win
         if table.manche.liste_joueurs[table.manche.tour%table.manche.n].nom == nom:
             joueur = table.manche.liste_joueurs[table.manche.tour%table.manche.n]
             if choix == "Suivre":
@@ -261,6 +263,8 @@ def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
                 raise HTTPException(status_code=404, detail="choix doit être 'Suivre', 'Se coucher' ou 'Relancer'")
         else:
             raise HTTPException(status_code=405, detail="Pas à ton tour")
+        if table.manche.win != "":
+            return table.manche.win
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 

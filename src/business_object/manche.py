@@ -21,6 +21,7 @@ class Manche():
         self.n=len(self.liste_joueurs)
         self.tour=self.dealer+1
         self.t1=True
+        self.win=""
 
     def blindes(self):
         j_small_blind = self.liste_joueurs[(self.dealer+1)%self.n]
@@ -62,6 +63,11 @@ class Manche():
                 ad.crediter(joueur, gain)
         
         self.liste_joueurs = []
+        self.win = f"Manche remportée par {joueurs_gagnants[0].nom}"
+        if len(joueurs_gagnants) >= 2:
+            for i in range(1, len(joueurs_gagnants)):
+                self.win += f" et {joueurs_gagnants[i]}"
+        
         
 
     def update(self):
