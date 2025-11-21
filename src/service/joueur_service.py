@@ -24,6 +24,11 @@ class compteService:
         return compte if compteDao().modifier(compte) else None
 
     @log
+    def stats(self, nom) -> Compte:
+        """Se connecter à partir de nom et mdp"""
+        return compteDao().stats(nom)
+
+    @log
     def supprimer(self, compte) -> bool:
         """Supprimer le compte d'un compte"""
         return compteDao().supprimer(compte)

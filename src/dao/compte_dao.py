@@ -87,6 +87,45 @@ class compteDao(metaclass=Singleton):
         return res == 1
 
     @log
+    def stats(self, nom):
+        """obtenir les statistiques d'un joueur
+
+        Parameters
+        ----------
+        nom : str
+            nom du compte que l'on souhaite trouver
+
+        Returns
+        -------
+        compte : compte
+            renvoie le compte que l'on cherche
+        """
+        res = None
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT nom, nb_victoires, nb_parties           "
+                        "  FROM compte                                  "
+                        " WHERE nom = %(nom)s                           ",
+                        {"nom": nom},
+                    )
+                    res = cursor.fetchone()
+        except Exception as e:
+            logging.info(e)
+
+        compte = None
+
+        if res:
+            compte = Compte(
+                nom=res["nom"],
+                nb_victoires=res["nb_victoires"],
+                nb_parties=res["nb_parties"]
+            )
+
+        return compte
+
+    @log
     def supprimer(self, compte) -> bool:
         """Suppression d'un compte dans la base de données
 

@@ -119,6 +119,13 @@ def supprimer_compte(pseudo, mdp):
     aservice.supprimer(pseudo)
     return True
 
+@app.get("/joueur/{pseudo}", tags=["Joueurs"])
+def statistiques(pseudo):
+    compte = joueur_service.stats(pseudo)
+    if compte is None:
+        raise HTTPException(status_code=404, detail="Joueur non trouvé")
+    return compte.nom, f"Nombre de victoires: {compte.nb_victoires}", f"Nombre de parties jouées: {compte.nb_parties}"
+
 
 @app.post("/table/", tags=["Tables"])
 def creer_table():
