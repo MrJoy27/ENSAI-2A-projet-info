@@ -58,9 +58,7 @@ Open Folder
 - Configuration files :
 
 This repository contains several configuration files for tooling.
-Normally, you will not need to modify any file except:
-
--  .env
+Normally, you will not need to modify any file except .env
 
 
 * Item	Description :
@@ -178,7 +176,7 @@ Test coverage can be generated with Coverage:
 Open the file coverage_report/index.html in your browser.
 
 
-## :arrow_forward: Launch the CLI application
+## :arrow_forward: Launch the TUI application
 
 The CLI allows players or admins to interact with the poker server through a text-based menu system.
 
@@ -198,15 +196,17 @@ Using the terminal,
 
 * players may:
 
-Log in
-Join a table
-Take actions during their turn (fold/call/raise/all-in)
-View their wallet balance
+- Log in / sign in 
+- Join a table
+- Take actions during their turn (fold/call/raise/all-in)
+- View their wallet balance
+- Check the statistics (wins / games played)
 
 * Admins may:
 
-Credit player balances
-Manage table
+- Credit player balances
+- ban an account 
+
 
 
 ## :arrow_forward: Launch the webservice
@@ -222,56 +222,11 @@ The webservice exposes a REST API allowing:
 
 
 - To launch the webservice:
+
 ```bash
 python src/app.py
 ```
-* Documentation:
 
-/docs (Swagger UI)
-/redoc (alternative documentation)
-
-* Endpoints
-
-Here are examples of endpoints (test them with Insomnia, Postman, or a browser):
-Players
-GET http://localhost:8000/joueur
-GET http://localhost:8000/joueur/3
-
-
-```bash
-
-POST http://localhost:8000/joueur/
-JSON body :
-{
-  "nom": "a",
-  "mdp": "a"
-}
-```
------
-```bash 
-PUT http://localhost:8000/joueur/3
-JSON body :
-{
-   "pseudo": "tartiflette",
-   "mdp": 1234
-}
-```
-
--------
-```bash
-DELETE http://localhost:8000/joueur/5
-
-```
-
-- Tables & Poker Gameplay :
-
-(this project may expose routes such as:)
-
-POST http://localhost:8000/table/1/join
-POST http://localhost:8000/table/1/action
-GET http://localhost:8000/table/1/state
-
-These allow joining seats, playing turns, and querying game state.
 
 
 ## :arrow_forward: Logs
@@ -306,20 +261,3 @@ Example of logs:
 06/11/2025 13:22:28 - INFO     -     compteService.se_connecter('a', '*****') - DEBUT
 06/11/2025 13:22:28 - INFO     -         compteDao.se_connecter('a', '*****') - DEBUT
 ```
-
-
-## :arrow_forward: Continuous integration (CI)
-
-The repository includes a .github/workflows/ci.yml file.
-
-
-On every GitHub push, a CI pipeline starts:
-
-- Creates an Ubuntu environment
-- Installs Python
-- Installs all dependencies
-- Runs unit tests (mainly service-layer tests)
-- Runs pylint
-
-If score < 7.5, the pipeline fails
-You can follow CI progress on GitHub under the *Actions* tab
