@@ -135,12 +135,10 @@ def creer_table():
     return id
 
 @app.put("/table/{table_id}", tags=["Tables"])
-def rejoindre_table(nom, mdp, table_id: int):
+def rejoindre_table(table_id: int,nom, mdp, ):
     compte = adminService().trouver_par_nom(nom)
-
-    if not compte:
-        raise HTTPException(status_code=404, detail="Compte non trouvé")
-    if not compte.mdp == mdp:
+    connexion=joueur_service.se_connecter(nom, mdp)
+    if not connexion:
         raise HTTPException(status_code=401, detail="Mot de passe erroné")
     table = None
     for tab in tables:
@@ -156,10 +154,10 @@ def rejoindre_table(nom, mdp, table_id: int):
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.get("/table/{table_id}", tags=["Tables"])
-def etat_table(id: int):
+def etat_table(table_id: int):
     table = None
     for tab in tables:
-        if tab.id == id:
+        if tab.id == table_id:
             table = tab
     if table is not None:
         return table.liste_comptes
