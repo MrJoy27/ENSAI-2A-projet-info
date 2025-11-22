@@ -100,8 +100,8 @@ async def creer_joueur(pseudo, mdp):
     return True
 
 
-@app.post("/joueur/connexion", tags=["Joueurs"])
-async def connexion_joueur(pseudo, mdp):
+@app.get("/joueur/connexion", tags=["Joueurs"])
+async def connexion_joueur(pseudo:str, mdp:str):
     """Se connecter"""
     logging.info("Se connecter")
     connexion = joueur_service.se_connecter(pseudo, mdp)
@@ -197,10 +197,10 @@ def lancer_manche(id_table: int, small: int, big: int):
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.get("/manche/{table_id}", tags=["Manche"])
-async def etat_manche(id_table: int, nom=None, mdp=None):
+async def etat_manche(table_id: int, nom=None, mdp=None):
     table = None
     for tab in tables:
-        if tab.id == id_table:
+        if tab.id == table_id:
             table = tab
     if nom is not None:
         compte = adminService().trouver_par_nom(nom)
@@ -236,7 +236,7 @@ async def etat_manche(id_table: int, nom=None, mdp=None):
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
 @app.put("/manche/{table_id}", tags=["Manche"])
-def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
+def jouer_manche(nom, mdp, choix: str, table_id: int, nb_jetons: int=0):
     compte = adminService().trouver_par_nom(nom)
     if not compte:
         raise HTTPException(status_code=404, detail="Compte non trouvé")
@@ -244,7 +244,7 @@ def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
         raise HTTPException(status_code=401, detail="Mot de passe erroné")
     table = None
     for tab in tables:
-        if tab.id == id_table:
+        if tab.id == table_id:
             table = tab
     if table is not None:
         if table.manche.win != "":
@@ -265,8 +265,27 @@ def jouer_manche(nom, mdp, choix: str, id_table: int, nb_jetons: int=0):
             return table.manche.win
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
-
-
+@app.get("/manche/en_cours/{table_id}", tags=["Manche"])
+def manche_en_cours(table_id:int, nom, mdp):
+    compte = adminService().trouver_par_nom(nom)
+    if not compte:
+        raise HTTPException(status_code=404, detail="Compte non trouvé")
+    if not compte.mdp == mdp:
+        raise HTTPException(status_code=401, detail="Mot de passe erroné")
+    table = None
+    for tab in tables:
+        if tab.id == table_id:
+            table = tab
+    if table is not None:
+        if table.manche is not None:
+            for j in table.manche.liste_joueurs:
+                if j.nom == nom:
+                    return True
+            return False
+        else:
+            return False
+    else:
+        raise HTTPException(status_code=404, detail="Table non trouvée")
 
 # Run the FastAPI application
 if __name__ == "__main__":

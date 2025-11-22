@@ -1,10 +1,6 @@
 from InquirerPy import inquirer
 from typing import Optional
 
-from business_object.compte import Compte
-from business_object.joueur import Joueur
-from business_object.table import Table
-
 from view.vue_abstraite import VueAbstraite
 from view.session import Session
 from view.table_vue import MenuTableVue
@@ -87,6 +83,7 @@ class MenuJoueurVue(VueAbstraite):
             case "Créer une table":
                 id=requests.post(url=os.environ["WEBSERVICE_HOST"]+"/table/").json()
                 return MenuJoueurVue(f"Table {id} créee")
+            
 
 
 
