@@ -38,9 +38,10 @@ class MenuJoueurVue(VueAbstraite):
             choices=[
                 "Rejoindre une table",
                 "Créer une table",
+                "Statistiques",
                 "Infos de session",
                 "Supprimer son compte",
-                "Se déconnecter"
+                "Se déconnecter",
             ],
         ).execute()
 
@@ -50,6 +51,11 @@ class MenuJoueurVue(VueAbstraite):
                 from view.accueil.accueil_vue import AccueilVue
 
                 return AccueilVue()
+
+            case "Statistiques":
+                pseudo = Session().compte
+                stats=requests.get(url=os.environ["WEBSERVICE_HOST"]+"/joueur/"+pseudo).json()
+                return MenuJoueurVue(stats)
 
             case "Infos de session":
                 return MenuJoueurVue(Session().afficher())
