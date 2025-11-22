@@ -15,10 +15,8 @@ class ConnexionVue(VueAbstraite):
         # Demande à l'utilisateur de saisir pseudo et mot de passe
         pseudo = inquirer.text(message="Entrez votre pseudo : ").execute()
         mdp = inquirer.secret(message="Entrez votre mot de passe :").execute()
-        print(pseudo,mdp)
         # Appel du service pour trouver le joueur
         joueur = requests.get(url=os.environ["WEBSERVICE_HOST"]+"/joueur/connexion", params={"pseudo":pseudo,"mdp":mdp}).json()
-        print(os.environ["WEBSERVICE_HOST"]+"/joueur/connexion",joueur)
         # Si le joueur a été trouvé à partir des ses identifiants de connexion
         if joueur==True:
             message = f"Vous êtes connecté sous le pseudo {pseudo}"

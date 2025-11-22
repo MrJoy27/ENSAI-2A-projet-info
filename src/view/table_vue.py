@@ -63,10 +63,8 @@ class MenuTableVue(VueAbstraite):
                 return MenuTableVue("Aucune manche en cours")
             case "Lancer une partie":
                 tab_id=Session().table
-                if len(tab.liste_comptes) < 2:
-                    return MenuTableVue("Pas assez de joueurs pour lancer un manche")
                 small=inquirer.text(message="Quelle valeur pour la small blind ?").execute()
                 big=inquirer.text(message="Quelle valeur pour la big blind ?").execute()
-                requests.post(url=os.environ["WEBSERVICE_HOST"]+"/manche/",params={"small":small,"big":big, "id_table":tab_id }, )
+                reponse=requests.post(url=os.environ["WEBSERVICE_HOST"]+"/manche/",params={"small":small,"big":big, "id_table":tab_id }, ).json()
                 from view.manche_vue import MenuMancheVue
-                return MenuMancheVue()
+                return MenuMancheVue(reponse)
