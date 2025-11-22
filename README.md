@@ -240,9 +240,9 @@ Admins may:
 - Credit player balances
 - ban an account 
 
-
+## :warning: please do not abuse the use of this information
 For reproducibility reasons, you need the admin password : crab_love
-:warning: please do not abuse the use of this information
+
 
 ## :arrow_forward: Logs
 
