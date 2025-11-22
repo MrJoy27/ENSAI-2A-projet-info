@@ -121,7 +121,7 @@ At the root of the project:
  Paste and complete the values below:
 
 ```bash
-WEBSERVICE_HOST=https://pokeapi.co/api/v2
+WEBSERVICE_HOST=your webservice url on onyxia
 
 POSTGRES_HOST=sgbd-eleves.domensai.ecole
 POSTGRES_PORT=5432
@@ -183,10 +183,35 @@ Test coverage can be generated with Coverage:
 
 Open the file coverage_report/index.html in your browser.
 
+## :arrow_forward: Launch the webservice
+
+The webservice exposes a REST API allowing:
+
+- Player account creation and authentication
+- Joining tables
+- Taking poker actions
+- Getting current table/game state
+- Admin operations
+
+
+
+- To launch the webservice:
+
+```bash
+python src/app.py
+```
+
+To launch the app go to My Services in the Onyxia datalab and press 
+
+*Open* > use the link (second link in the description paragraph )to connect to the 9876 
+port ( !! DO NOT COPY THE PASSWORD AND CONNECT LIKE WE USUALLY DO !! )
+
 
 ## :arrow_forward: Launch the TUI application
 
-The CLI allows players or admins to interact with the poker server through a text-based menu system.
+The CLI allows players or admins to interact with the poker server through a text-based menu system. It has to be launched when the webservice is launched in a another terminal
+
+.
 
 SO: 
 
@@ -215,30 +240,6 @@ Admins may:
 - Credit player balances
 - ban an account 
 
-
-
-## :arrow_forward: Launch the webservice
-
-The webservice exposes a REST API allowing:
-
-- Player account creation and authentication
-- Joining tables
-- Taking poker actions
-- Getting current table/game state
-- Admin operations
-
-
-
-- To launch the webservice:
-
-```bash
-python src/app.py
-```
-
-To launch the app go to My Services in the Onyxia datalab and press 
-
-*Open* > use the link (second link in the description paragraph )to connect to the 9876 
-port ( !! DO NOT COPY THE PASSWORD AND CONNECT LIKE WE USUALLY DO !! )
 
 
 ## :arrow_forward: Logs
