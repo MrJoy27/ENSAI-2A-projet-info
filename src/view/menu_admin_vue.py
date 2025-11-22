@@ -46,7 +46,6 @@ class MenuAdminVue(VueAbstraite):
                 "Créditer un compte",
                 "Infos de session",
                 "Supprimer un compte",
-                #"Réinitialiser la base de données",
                 "Se déconnecter"
             ],
         ).execute()
@@ -84,12 +83,4 @@ class MenuAdminVue(VueAbstraite):
                     return MenuAdminVue(f"Compte {nom} supprimé")
                 else:
                     return MenuAdminVue()
-            
-            #case "Réinitialiser la base de données":
-                #vali = inquirer.confirm("Êtes-vous sûr ?").execute()
-                #if vali:
-                    #succes = ResetDatabase().lancer()
-                    #message = (
-                        #f"Ré-initilisation de la base de données - {'SUCCES' if succes else 'ECHEC'}"
-                    #)
-                #return MenuAdminVue()
+        

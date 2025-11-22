@@ -15,10 +15,10 @@ class ConnexionAdmin(VueAbstraite):
         # Demande à l'utilisateur de saisir pseudo et mot de passe
         mdp = inquirer.secret(message="Entrez le mot de passe :").execute()
         # Appel du service pour trouver le joueur
-        admin = requests.get(url=os.environ["WEBSERVICE_HOST"]+"/admin/connexion", params=mdp).json()
-
+        admin = requests.get(url=os.environ["WEBSERVICE_HOST"]+"/admin/connexion", params={"mdp":mdp}).json()
+        print(admin)
         # Si le joueur a été trouvé à partir des ses identifiants de connexion
-        if admin:
+        if admin==True:
             message = f"Vous êtes connecté en tant qu'administrateur"
             Session().connexion("admin",mdp)
 
