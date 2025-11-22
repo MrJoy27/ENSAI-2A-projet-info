@@ -191,8 +191,11 @@ def lancer_manche(id_table: int, small: int, big: int):
         if tab.id == id_table:
             table = tab
     if table is not None:
-        table.commencer_manche(small, big)
-        return f'Début de la manche sur la table {table.id}'
+        if len(table.liste_comptes)>=2:
+            table.commencer_manche(small, big)
+            return f'Début de la manche sur la table {table.id}'
+        else:
+            return f"Pas assez de joueurs sur la table"
     else:
         raise HTTPException(status_code=404, detail="Table non trouvée")
 
