@@ -15,57 +15,110 @@ Pour afficher ce diagramme dans VScode :
   * faire **CTRL + K**, puis **V**v
 
 ```mermaid
+
 classDiagram
+    directionLR
     class Joueur {
       +nom: str
-      +main: list[Carte]
+      +main: ListeCartes
       +jetons_restants: int
-      +id_compte: int 
-      +relancer()
-      +suivre()
-      +se_coucher()
-      +jetons_restants()
+      +id_compte: int
+      +mise: int
+
+      +__init__(nom, main, jetons_restants, id_compte=None, mise=0)
+      +__str__(): str
       +voir_main()
-    }
-    
-    class Carte {
-      +Valeur: Valeur[enum]
-      +Couleur: Couleur[enum]
-    }
-    
-    class Manche {
-      +liste_joueurs:list[Joueur]
-      +pot:int
-      +riviere:list[Carte]
-      +revele:list[Bool]
-      +couche:list[Bool]
-      +finir_manche()
+      +voir_jetons_restants()
+      +small_blind(nb, manche)
+      +big_blind(nb, manche)
+      +relancer(nb_jetons, manche)
+      +suivre(manche)
+      +couche(manche)
     }
 
-    class Table {
-      +liste_compte: list[Compte]
-      +deck: Deck 
-      +commencer_manche()
+    class Carte{
+      +couleur: Couleur[enum]
+      +valeur: Valeur[enum]
     }
+    
+    
+    class Manche {
+      +liste_joueurs: list[Joueur]
+      +pot: int
+      +mise: int
+      +riviere: list[Carte]
+      +revele: list[bool]
+      +couche: list[bool]
+      +dealer: int
+      +small_blind: int
+      +big_blind: int
+      +n: int
+      +tour: int
+      +t1: bool
+      +win: str
+
+      +__init__(liste_joueurs, riviere, small_blind, big_blind)
+      +blindes()
+      +finir_manche()
+      +update()
+      +voir_riviere(): list[Carte]
+    }
+
+
+    class Table {
+      +liste_comptes: list[Compte]
+      +deck: Deck
+      +id: int
+      +manche: Manche
+
+      +__init__(id)
+      +commencer_manche(small, big): Manche
+    }
+
     
     class Compte {
       +id: int
       +nom: str
       +mdp: str
       +nb_jetons: int
-      +nb_parties_gagnées: int 
+      +nb_victoires: int
+      +nb_parties: int
+
+      +__init__(nom, mdp=None, nb_jetons=0, nb_victoires=0, nb_parties=0, id=None)
+      +as_list(): list[str]
       +rejoindre_table(table)
       +quitter_table(table)
-      +se_connecter()
-      +se_deconnecter()
-      +voir_profil()
+      +view_profile()
     }
 
-    class Admin {
-      +mdp:int
-      +accrediter_jetons(Joueur)
-      +bannir(Joueur)
+    class ListeCartes {
+      -__cartes: list[Carte]
+
+      +__init__(cartes: list[Carte])
+      +cartes(): list[Carte]
+      +__eq__(liste_cartes): bool
+      +__str__(): str
+      +__len__(): int
+      +melanger()
+      +ajouter_carte(card: Carte)
+      +retirer_carte(indice: int): Carte
+      +max(): Carte
     }
+
+
+    class Combinaison {
+      +liste_cartes : ListeCartes
+      +type : str
+      +tie_breaker : list
+
+      +__init__(liste_cartes)
+      +__eq__(other) : bool
+      +__ne__(other) : bool
+      +__lt__(other) : bool
+      +__le__(other) : bool
+      +__gt__(other) : bool
+      +__ge__(other) : bool
+  }
 
     class Deck {
       +liste_carte: list[Carte]
@@ -75,11 +128,13 @@ classDiagram
 
     Carte -- Joueur
     Carte -- Manche
-    Carte -- Deck
+    Carte -- ListeCartes
+    ListeCartes -- Deck
     Deck -- Table
     Joueur -- Compte
     Joueur -- Manche
+    Manche -- Combinaison
+    Combinaison -- Carte
     Manche -- Table
     Table -- Compte
-    Compte -- Admin
 ```
