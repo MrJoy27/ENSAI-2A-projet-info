@@ -54,7 +54,7 @@ class Joueur:
             self.mise = nb
     
     def relancer(self, nb_jetons, manche):
-        if not manche.liste_joueurs.index(self) == manche.tour%manche.n:
+        if not manche.liste_joueurs.index(self) == manche.tour%manche.n or manche.couche[manche.liste_joueurs.index(self)]:
             print("Pas à ton tour")
         else:
             if nb_jetons > self.jetons_restants:
@@ -69,7 +69,7 @@ class Joueur:
                 manche.update()
 
     def suivre(self, manche):
-        if not manche.liste_joueurs.index(self) == manche.tour%manche.n:
+        if not(manche.liste_joueurs.index(self) == manche.tour%manche.n) or manche.couche[manche.liste_joueurs.index(self)]:
             print("Pas à ton tour")
         else:
             if self.jetons_restants >= manche.mise-self.mise:
@@ -88,5 +88,5 @@ class Joueur:
             for i in range(len(manche.liste_joueurs)):
                 if manche.liste_joueurs[i] == self:
                     pos = i
-            manche.couche[i] = True
+            manche.couche[pos] = True
             manche.update()

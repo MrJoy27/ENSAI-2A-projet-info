@@ -53,7 +53,7 @@ class Manche():
                 joueurs_gagnants.append(bi[1])
         ad=adminDao()
         for joueur in self.liste_joueurs:
-                ad.modifier_jetons(joueur.nom,joueur.jetons_restants)
+            ad.modifier_jetons(joueur.nom,joueur.jetons_restants)
         if len(joueurs_gagnants) == 1:
             ad.crediter(joueurs_gagnants[0].nom, self.pot)
             
@@ -92,7 +92,10 @@ class Manche():
                         self.tour -= 1
                     else:
                         self.revele[4] = True
-            self.tour += 1
+            j=1
+            while self.couche[(self.tour+j)%self.n]:
+                j+=1
+            self.tour+=j
         else:
             self.finir_manche()
 
