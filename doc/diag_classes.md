@@ -17,7 +17,7 @@ Pour afficher ce diagramme dans VScode :
 ```mermaid
 
 classDiagram
-    directionLR
+    direction LR
     class Joueur {
       +nom: str
       +main: ListeCartes
@@ -107,7 +107,7 @@ classDiagram
 
 
     class Combinaison {
-      +liste_cartes : ListeCartes
+      +liste_cartes : Liste[Carte]
       +type : str
       +tie_breaker : list
 
@@ -121,7 +121,7 @@ classDiagram
   }
 
     class Deck {
-      +liste_carte: list[Carte]
+      +liste_carte: ListeCarte
       +melanger()
       +piocher(): Carte
     }
